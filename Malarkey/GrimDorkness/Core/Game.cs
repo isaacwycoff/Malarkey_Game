@@ -24,8 +24,7 @@ namespace Malarkey
     /// </summary>
     public class Game : Microsoft.Xna.Framework.Game
     {
-        // consts
-        const int MAX_ENEMIES = 16;
+        // FIXME: these shouldn't be constant
         const int SCREEN_WIDTH = 800;
         const int SCREEN_HEIGHT = 600;
 
@@ -43,7 +42,7 @@ namespace Malarkey
         Fader fader;
 
 
-        const int ZEPPELIN_FREQUENCY = 100;     // FIXME: this should be controlled elsewhere
+        // const int ZEPPELIN_FREQUENCY = 100;     // FIXME: this should be controlled elsewhere
 
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -405,7 +404,6 @@ namespace Malarkey
             totalKills += points;
         }
 
-
         /// <summary>
         /// This is called when the game should draw itself.
         /// </summary>
@@ -417,7 +415,7 @@ namespace Malarkey
 
             // clear every cycle or we can get graphical artifacts
             // not strictly necessary as we tend to fill up the whole screen every frame
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            // GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // begin drawing - XNA 4.0 code -
             spriteBatch.Begin(SpriteSortMode.Deferred,          // TODO: Research
@@ -426,27 +424,9 @@ namespace Malarkey
                             DepthStencilState.Default,          //
                             RasterizerState.CullNone);          // TODO: Research
 
-            // FIXME: create separate cloud-overlay class
-            // begin janky cloud-drawing code: (should put this off in its own class)
-
-            Rectangle tmpBackgroundRect = new Rectangle(0, cloudsOffset, SCREEN_WIDTH, SCREEN_HEIGHT);
-
-            spriteBatch.Draw(cloudsTexture, tmpBackgroundRect, Color.White);
-
-            tmpBackgroundRect = new Rectangle(0, cloudsOffset - SCREEN_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT);
-
-            spriteBatch.Draw(cloudsTexture, tmpBackgroundRect, Color.White);
-
-            cloudsOffset += 1;
-            if (cloudsOffset > 600) cloudsOffset -= SCREEN_HEIGHT;
-
-            // end janky cloud-drawing code
-
             // new code for the top-down
             // should split off the old drawing code for the SHMUP
             worldFloor.Draw(gameTime);
-
-
 
             // spit out all the entities:
             foreach (Entity tmpEntity in listOfEntities)
@@ -466,96 +446,40 @@ namespace Malarkey
                 tmpExplosion.Draw(gameTime);
             }
 
+            // draw clouds
 
-            // FIXME: this should be in its own crowd-drawing class
-            // foreground clouds -- janky as fuck --- TODO: put this in a separate class
+            // draw UI
 
-            Rectangle tmpForegroundRect = new Rectangle(0, fastCloudsOffset, SCREEN_WIDTH, SCREEN_HEIGHT);
-
-            // FIXME: don't redefine this every frame! that is DUMB.
-            Color transparentColor = new Color(0.25f, 0.25f, 0.25f, 0.25f);         // XNA 4.0 version
-
-            spriteBatch.Draw(cloudsTexture, tmpForegroundRect, transparentColor);
-
-            tmpForegroundRect = new Rectangle(0, fastCloudsOffset - SCREEN_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT);
-
-            spriteBatch.Draw(cloudsTexture, tmpForegroundRect, transparentColor);
-
-            fastCloudsOffset += 2;
-            if (fastCloudsOffset > SCREEN_HEIGHT) fastCloudsOffset -= SCREEN_HEIGHT;
-
+            // draw debugging overlay
 
             // debugging text -- FIXME: put this in its own function
             string output = "";
-
-            // Draw debugging text:
-            if (gameState == GameStatus.game)
-            {
- //               GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed
-
-                GamePadThumbSticks sticks = GamePad.GetState(PlayerIndex.One).ThumbSticks;
-
-                output = "L(X: " + sticks.Left.X + ", Y: " + sticks.Left.Y + ") R(X: " + sticks.Right.X + ", Y: " + sticks.Right.Y + ")";
-
-//                output = "Number of power ups: " + listOfPowerUps.Count();
-            }
-            else
-            {
-                output = "Welcome to Malarkey and Bunkum.\nNewline Test.";
-
-            }
 
             // Find the center of the string
             Vector2 FontOrigin = devFont.MeasureString(output) / 2;
             // Draw the string
             spriteBatch.DrawString(devFont, output, new Vector2(21, 501), Color.DarkBlue);          // y 571
-
             spriteBatch.DrawString(devFont, output, new Vector2(20, 500), Color.WhiteSmoke);        // y 570
-
             hudHealthBar.DrawHealthTicks(spriteBatch, player.GetHealth(), player.GetMaxHealth());
 
             // draw overlays:
-
             switch (gameState)
             {
                 case GameStatus.startMenu:
-                    {
-
-                        
-                        spriteBatch.Draw(mainMenuTexture, fullScreen, Color.White);
-
-                        Rectangle knightRect = new Rectangle(0, 0, 1024, 1024);
-
-                        spriteBatch.Draw(knightSwordTexture, knightRect, Color.White);
-
-
+                    {                        
                         break;
                     }
                 case GameStatus.dead:
                     {
-                        spriteBatch.Draw(deathScreenTexture, fullScreen, Color.White);
-
-                        string finalScore = "You took " + totalKills + " souls with you.";
-
-                        // Find the center of the string
-                        int scoreXPos = 400 - ((int)devFont.MeasureString(finalScore).X / 2);
-
-                        // Draw the string
-                        spriteBatch.DrawString(devFont, finalScore, new Vector2(scoreXPos, 561), Color.DarkBlue);
-
-                        spriteBatch.DrawString(devFont, finalScore, new Vector2(scoreXPos, 560), Color.WhiteSmoke);
-
                         break;
                     }
                 default:
                     {
-
                         break;
                     }
-
-
             }
 
+            // draw fader overlay
             fader.Draw(gameTime);      // fader overlay for fading in and out
 
             // end drawing:
@@ -567,7 +491,6 @@ namespace Malarkey
 
         void UpdateShmup(GameTime gameTime)
         {
-
 
             fader.Update(gameTime);
 
@@ -593,35 +516,6 @@ namespace Malarkey
             }
 
             newEntities.RemoveRange(0, newEntities.Count());
-
-            // this code should be off in its own method
-            // add more planes:
-            if (numberOfEnemies < MAX_ENEMIES && randomizer.Next(10) < 1)
-            {
-
-                Vector2 tmpVector = new Vector2(randomizer.Next(10, 790), -50);     // FIXME: get rid of magic numbers
-
-                ShipType tmpShipType = (ShipType)randomizer.Next(0, 3);
-
-                AIType tmpAIType = (AIType)randomizer.Next(0, 4);
-
-                // FIXME: this should be controlled differently
-                if (enemiesPassed % ZEPPELIN_FREQUENCY == (ZEPPELIN_FREQUENCY - 1))
-                {
-                    ZeppelinBoss tmpZepp = new ZeppelinBoss(zeppelinTexture, new Vector2(400, -250), this);
-                    listOfEntities.Add(tmpZepp);
-                }
-                else
-                {
-
-                    EnemyShip tmpEnemyShip = new EnemyShip(enemyTexture, tmpShipType, tmpAIType, tmpVector, this);
-                    listOfEntities.Add(tmpEnemyShip);
-                }
-                ++numberOfEnemies;
-                ++enemiesPassed;
-
-
-            }
 
             // parse player's keypresses
             ParseInput(gameTime);
@@ -705,10 +599,6 @@ namespace Malarkey
                 if (player.GetHealth() <= 0 && gameState == GameStatus.game)
                 {
                     gameState = GameStatus.dead;
-
-                    /*                    MediaPlayer.IsRepeating = false;
-                                        MediaPlayer.Play(Content.Load<Song>("Music/taps"));
-                                        MediaPlayer.Volume = 1.0f; */
 
                 }
             }
