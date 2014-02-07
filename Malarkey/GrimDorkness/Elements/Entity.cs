@@ -68,6 +68,16 @@ namespace Malarkey
 
         }
 
+        public int GetHealth()
+        {
+            return health;
+        }
+
+        public int GetMaxHealth()
+        {
+            return maxHealth;
+        }
+
         public Team GetTeam()
         {
             return team;

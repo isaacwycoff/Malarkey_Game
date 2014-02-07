@@ -35,8 +35,8 @@ namespace Malarkey
             dead,
             pauseMenu,
             restart,
-            exit,
-            shmUp               // secret shoot-em-up level
+            exit
+            // shmUp               // secret shoot-em-up level
         };
 
         Fader fader;
@@ -59,7 +59,7 @@ namespace Malarkey
 
         // special reference to our player ship, so we don't have to search for it
         // every frame:
-        PlayerShip player;
+        // PlayerShip player;
         Hero playerHero;
 
 
@@ -174,44 +174,26 @@ namespace Malarkey
             // incorrectly:
             if (Keyboard.GetState().IsKeyDown(Keys.Space) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.A))
             {
-
                 playerHero.SendCommand(HeroCommand.AttackMelee, gameTime);
-
-                if (player.CanFire())
-                {
-                    // FIXME: the player class should be dealing with this
-                    player.SendCommand(PlayerCommand.Fire, gameTime);
-
-                    // randomize the gun noises a bit so they don't all sound the same:
-                    float randomPitch = 0.25f + (-0.1f * randomizer.Next(0, 5));
-                    gunShot1.Play(0.25f, randomPitch, 0.0f);
-
-                    this.AddNewBullet(BulletType.FireBall, Direction.North, Team.Player, player.GetBarrelPosition());
-
-                    noInput = false;
-                }
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.Z))
             {
-                player.SendCommand(PlayerCommand.AltFire, gameTime);
+                // player.SendCommand(PlayerCommand.AltFire, gameTime);
                 noInput = false;
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.Up) || GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.Y > 0.0)
             {
-                player.SendCommand(PlayerCommand.FlyForward, gameTime);
+                // player.SendCommand(PlayerCommand.FlyForward, gameTime);
                 playerHero.SendCommand(HeroCommand.MoveNorth, gameTime);
                 noInput = false;
 
             }
 
-
-
             if (Keyboard.GetState().IsKeyDown(Keys.Down) || GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.Y < 0.0)
             {
                 playerHero.SendCommand(HeroCommand.MoveSouth, gameTime);
-                player.SendCommand(PlayerCommand.FlyBackward, gameTime);
                 noInput = false;
 
             }
@@ -219,7 +201,6 @@ namespace Malarkey
             if (Keyboard.GetState().IsKeyDown(Keys.Right) || GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X > 0.0)
             {
                 playerHero.SendCommand(HeroCommand.MoveEast, gameTime);
-                player.SendCommand(PlayerCommand.FlyRight, gameTime);
 
                 noInput = false;
             }
@@ -227,7 +208,6 @@ namespace Malarkey
             if (Keyboard.GetState().IsKeyDown(Keys.Left) || GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X < 0.0)
             {
                 playerHero.SendCommand(HeroCommand.MoveWest, gameTime);
-                player.SendCommand(PlayerCommand.FlyLeft, gameTime);
 
                 noInput = false;
             }
@@ -235,7 +215,7 @@ namespace Malarkey
             // no input given -- go idle
             if (noInput)
             {
-                player.SendCommand(PlayerCommand.Idle, gameTime);
+
             }
 
         }
@@ -324,35 +304,27 @@ namespace Malarkey
             fader = new Fader(blackPixelTexture, fullScreen);
             fader.fadeIn(Fader.DEFAULT_FADE_SHIFT);
 
-            // create our player's ship and assign it:
-            player = new PlayerShip(myTexture);
-
-            listOfEntities.Add(player);         // add the player entity to our global list of entities
-
-
             playerHero = new Hero(knightSwordTexture);
 
             listOfEntities.Add(playerHero);
 
-            hudHealthBar = new HealthBar(healthTickTexture, player.GetHealth(), player.GetMaxHealth());
+            hudHealthBar = new HealthBar(healthTickTexture, playerHero.GetHealth(), playerHero.GetMaxHealth());
+            // hudHealthBar = new HealthBar(healthTickTexture, player.GetHealth(), player.GetMaxHealth());
 
-            PowerUp tmpPowerUp = new PowerUp(powerUpsTexture, PowerUpType.repair, new Vector2(400, 100));
-
-            listOfPowerUps.Add(tmpPowerUp);
+//             listOfPowerUps.Add(tmpPowerUp);
 
         }
 
         // create a new bullet!
         // called by entities when they want to shoot shit
-        public void AddNewBullet(BulletType bulletType, Direction direction, Team team, Vector2 position)
+/*        public void AddNewBullet(BulletType bulletType, Direction direction, Team team, Vector2 position)
         {
-            Bullet tmpBullet = new Bullet(projectileTexture, bulletType, direction, team, position);
-
-            newEntities.Add(tmpBullet);
-
+            // Bullet tmpBullet = new Bullet(projectileTexture, bulletType, direction, team, position);
+            // newEntities.Add(tmpBullet);
             // play the sound effect!
         }
 
+ */
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
         /// all content.
@@ -386,11 +358,6 @@ namespace Malarkey
 
                     break;
                 }
-                case GameStatus.shmUp:
-                {
-                    break;
-                }
-
             }
 
             base.Update(gameTime);
@@ -460,7 +427,7 @@ namespace Malarkey
             // Draw the string
             spriteBatch.DrawString(devFont, output, new Vector2(21, 501), Color.DarkBlue);          // y 571
             spriteBatch.DrawString(devFont, output, new Vector2(20, 500), Color.WhiteSmoke);        // y 570
-            hudHealthBar.DrawHealthTicks(spriteBatch, player.GetHealth(), player.GetMaxHealth());
+            hudHealthBar.DrawHealthTicks(spriteBatch, playerHero.GetHealth(), playerHero.GetMaxHealth());
 
             // draw overlays:
             switch (gameState)
@@ -559,8 +526,8 @@ namespace Malarkey
                             {
                                 if (randomizer.Next(0, 10) < 1)
                                 {
-                                    Entity tmpPowerUp = new PowerUp(powerUpsTexture, PowerUpType.repair, compareEntity1.CurrentPosition());
-                                    listOfPowerUps.Add(tmpPowerUp);
+                                    // Entity tmpPowerUp = new PowerUp(powerUpsTexture, PowerUpType.repair, compareEntity1.CurrentPosition());
+                                    // listOfPowerUps.Add(tmpPowerUp);
 
                                 }
 
@@ -574,10 +541,6 @@ namespace Malarkey
 
                             Vector2 tmpPosition = listOfEntities[compare_index2].CurrentPosition();
 
-                            // create the physical explosion:
-                            Explosion tmpExplosion = new Explosion(explosionsTexture, ExplosionType.Basic, tmpPosition);
-
-                            listOfExplosions.Add(tmpExplosion);
                         }
                     }
                 }
@@ -585,22 +548,9 @@ namespace Malarkey
                 // power-up collisions:
                 foreach (Entity tmpPowerUp in listOfPowerUps)
                 {
-                    if (player.ScreenRect().Intersects(tmpPowerUp.ScreenRect()))
-                    {
-                        tmpPowerUp.Destroy();
-
-                        // FIXME: this should be dealt with by the the powerup + player
-                        player.Repair(1);
-
-                    }
-                }
-
-                // FIXME: this is messy! should probably be split off
-                if (player.GetHealth() <= 0 && gameState == GameStatus.game)
-                {
-                    gameState = GameStatus.dead;
 
                 }
+
             }
             // end collision detection
 
@@ -609,7 +559,7 @@ namespace Malarkey
             foreach (Entity tmpEntity in entitiesToDelete)
             {
                 listOfEntities.Remove(tmpEntity);
-                if (tmpEntity is EnemyShip) --numberOfEnemies;
+                // if (tmpEntity is EnemyShip) --numberOfEnemies;
             }
 
             // power-ups next

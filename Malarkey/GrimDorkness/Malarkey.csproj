@@ -120,13 +120,7 @@
     <Compile Include="Console\DevConsole.cs" />
     <Compile Include="Core\Settings.cs" />
     <Compile Include="Elements\Entities\Hero.cs" />
-    <Compile Include="Elements\Entities\Deprecated\PowerUp.cs" />
-    <Compile Include="Elements\Entities\Deprecated\ZeppelinBoss.cs" />
-    <Compile Include="Elements\Entities\Deprecated\Bullet.cs" />
-    <Compile Include="Elements\Entities\Deprecated\EnemyShip.cs" />
     <Compile Include="Elements\Entity.cs" />
-    <Compile Include="Elements\Entities\Deprecated\Explosion.cs" />
-    <Compile Include="Elements\Entities\Deprecated\PlayerShip.cs" />
     <Compile Include="Core\Element.cs" />
     <Compile Include="Elements\Effects\Fader.cs" />
     <Compile Include="Elements\HUD\HealthBar.cs" />
@@ -201,6 +195,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Dialog\" />
+    <Folder Include="Elements\Entities\Deprecated\" />
     <Folder Include="WorldMap\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
