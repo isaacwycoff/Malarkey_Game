@@ -41,6 +41,11 @@ namespace Malarkey
             return tmpRect;
         }
 
+        public Boolean IsMarkedForDeath()
+        {
+            return markedForDeath;
+        }
+
         /// <summary>
         /// Draws the element to the screen
         /// </summary>

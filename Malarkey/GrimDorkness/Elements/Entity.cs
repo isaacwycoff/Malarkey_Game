@@ -68,6 +68,11 @@ namespace Malarkey
 
         }
 
+        public Boolean ShouldRemove()
+        {
+            return false;
+        }
+
         public int GetHealth()
         {
             return health;

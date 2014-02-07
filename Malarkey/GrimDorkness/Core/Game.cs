@@ -67,6 +67,8 @@ namespace Malarkey
         List<Entity> listOfExplosions;
         List<Entity> listOfPowerUps;
 
+        List<Entity> entitiesToDelete;
+
         // new entities get temporarily put in here:
         List<Entity> newEntities;
 
@@ -278,7 +280,10 @@ namespace Malarkey
 
             listOfPowerUps = new List<Entity>();
 
+            entitiesToDelete = new List<Entity>();
+
             newEntities = new List<Entity>();
+
 
 
             worldFloor = new Floor(jungleTexture, Floor.DEFAULT_TILE_SIZE, Floor.DEFAULT_TILE_SIZE);
@@ -309,22 +314,9 @@ namespace Malarkey
             listOfEntities.Add(playerHero);
 
             hudHealthBar = new HealthBar(healthTickTexture, playerHero.GetHealth(), playerHero.GetMaxHealth());
-            // hudHealthBar = new HealthBar(healthTickTexture, player.GetHealth(), player.GetMaxHealth());
-
-//             listOfPowerUps.Add(tmpPowerUp);
-
         }
 
-        // create a new bullet!
-        // called by entities when they want to shoot shit
-/*        public void AddNewBullet(BulletType bulletType, Direction direction, Team team, Vector2 position)
-        {
-            // Bullet tmpBullet = new Bullet(projectileTexture, bulletType, direction, team, position);
-            // newEntities.Add(tmpBullet);
-            // play the sound effect!
-        }
 
- */
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
         /// all content.
@@ -344,7 +336,7 @@ namespace Malarkey
             // SWITCH: what mode are we in?
             // should maybe instead just point to a different function
 
-            this.UpdateShmup(gameTime);
+            this.UpdateGame(gameTime);
 
             switch (gameState)
             {
@@ -455,17 +447,9 @@ namespace Malarkey
             base.Draw(gameTime);
         }
 
-
-        void UpdateShmup(GameTime gameTime)
+        private void UpdateGame(GameTime gameTime)
         {
-
             fader.Update(gameTime);
-
-            if (gameState == GameStatus.startMenu)
-            {
-                ParseInput(gameTime);           // fixme
-                return;
-            }
 
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
@@ -474,9 +458,7 @@ namespace Malarkey
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 this.Exit();
 
-
             // TODO: Add your update logic here
-
             foreach (Entity tmpEntity in newEntities)
             {
                 listOfEntities.Add(tmpEntity);
@@ -487,16 +469,27 @@ namespace Malarkey
             // parse player's keypresses
             ParseInput(gameTime);
 
-            List<Entity> entitiesToDelete = new List<Entity>();
-
             // go thru each entity and update its AI:
             foreach (Entity tmpEntity in listOfEntities)
             {
                 tmpEntity.Update(gameTime);
 
+                // might not need to add this to a list - instead we might just cycle through the entities and delete them
+                if (tmpEntity.IsMarkedForDeath()) entitiesToDelete.Add(tmpEntity);
+
                 // if an entity is off the screen, mark it for death!
-                if (!tmpEntity.isVisible()) entitiesToDelete.Add(tmpEntity);
+                // if (!tmpEntity.isVisible()) entitiesToDelete.Add(tmpEntity);
             }
+
+            ResolveCollisions(gameTime);
+
+            FrameCleanUp();
+
+
+        }
+
+        private void ResolveCollisions(GameTime gameTime)
+        {
 
             // collision detection -- FIXME: this should be its own function at the very least.
             for (int compare_index1 = 0; compare_index1 < listOfEntities.Count; compare_index1++)
@@ -540,7 +533,6 @@ namespace Malarkey
                             explosion1.Play(0.20f, pitchShift, 0.0f);
 
                             Vector2 tmpPosition = listOfEntities[compare_index2].CurrentPosition();
-
                         }
                     }
                 }
@@ -551,9 +543,13 @@ namespace Malarkey
 
                 }
 
-            }
-            // end collision detection
+            } // end collision detection
 
+
+        }
+
+        private void FrameCleanUp()
+        {
             // remove any entities that have been marked for death:
             // have to do it this way, or the foreach code above will freak out
             foreach (Entity tmpEntity in entitiesToDelete)
@@ -562,38 +558,9 @@ namespace Malarkey
                 // if (tmpEntity is EnemyShip) --numberOfEnemies;
             }
 
-            // power-ups next
-            // update & delete ones that are finished       --- TODO: put this all in a separate function that gets called repeatedly
-            List<Entity> powerUpsToDelete = new List<Entity>();
-
-            foreach (Entity tmpPowerUp in listOfPowerUps)
-            {
-                tmpPowerUp.Update(gameTime);
-                if (!tmpPowerUp.isVisible()) powerUpsToDelete.Add(tmpPowerUp);
-            }
-
-            foreach (Entity tmpPowerUp in powerUpsToDelete)
-            {
-                listOfPowerUps.Remove(tmpPowerUp);
-            }
-
-
-            // explosions now!
-            // update and delete ones that are finished
-            List<Entity> explosionsToDelete = new List<Entity>();
-
-            foreach (Entity tmpExplosion in listOfExplosions)
-            {
-                tmpExplosion.Update(gameTime);
-                if (!tmpExplosion.isVisible()) explosionsToDelete.Add(tmpExplosion);
-            }
-
-            foreach (Entity tmpExplosion in explosionsToDelete)
-            {
-                listOfExplosions.Remove(tmpExplosion);
-            }
-
         }
+
+
 
     }
 
