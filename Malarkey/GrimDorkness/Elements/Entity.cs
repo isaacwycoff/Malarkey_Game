@@ -19,9 +19,10 @@ namespace Malarkey
     public enum EntityState
     {
         Attacking = 0x01,               // currently attacking
-        Dying = 0x02,                   // dying
+        Dying = 0x02,                   
         Invulnerable = 0x04,            
-        Farting = 0x08
+        Farting = 0x08,
+        Dead = 0x10
     }
 
     public enum Team
@@ -67,12 +68,7 @@ namespace Malarkey
             maxShield = 0;
 
         }
-
-        public Boolean ShouldRemove()
-        {
-            return false;
-        }
-
+        
         public int GetHealth()
         {
             return health;

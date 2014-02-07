@@ -41,9 +41,6 @@ namespace Malarkey
 
         Fader fader;
 
-
-        // const int ZEPPELIN_FREQUENCY = 100;     // FIXME: this should be controlled elsewhere
-
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         SpriteFont devFont;
@@ -52,10 +49,6 @@ namespace Malarkey
 
         // FIXME: cleanup this code -- rethink and reorganize
         int totalKills = 0;
-
-        int numberOfEnemies = 0;
-
-        int enemiesPassed = 0;
 
         // special reference to our player ship, so we don't have to search for it
         // every frame:
@@ -88,6 +81,9 @@ namespace Malarkey
         Texture2D knightSwordTexture;
         Texture2D jungleTexture;
 
+        // TextureManager
+        TextureManager textureManager = TextureManager.GetInstance();
+        // TextureManager.SetContentManager(Content
 
         // list reference to our textures. not currently used:
         List<Texture2D> listOfTextures;
@@ -106,9 +102,6 @@ namespace Malarkey
         HealthBar hudHealthBar;
 
         Floor worldFloor;
-
-        int cloudsOffset = 0;   // FIXME: for janky cloud code. should be in a separate class
-        int fastCloudsOffset = 0;
 
         public Game()
         {
