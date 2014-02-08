@@ -32,6 +32,7 @@ namespace Malarkey
         PowerUp = 3
     }
 
+    // FIXME: this should perhaps be somewhere central
     public enum Direction
     {
         South = 0,
@@ -42,7 +43,6 @@ namespace Malarkey
         NorthWest = 5,
         West = 6,
         SouthWest = 7
-
     }
 
     class Entity: Element
@@ -58,8 +58,13 @@ namespace Malarkey
         protected int speed;
         protected EntityState state;
 
-        protected int mapX, mapY;           // big coords - what X and Y in the grid?
-        protected float tileX, tileY;       // little coords - between 0.0 and 1.0. where in an individual tile?
+        // big coords - what X and Y in the grid?
+        public int mapX { get; protected set; }
+        public int mapY { get; protected set; }
+
+        // little coords - between 0.0 and 1.0. where in an individual tile?
+        public float tileX { get; protected set; }
+        public float tileY { get; protected set; }
 
         protected Team team;
 
@@ -75,24 +80,25 @@ namespace Malarkey
 
         override public Rectangle ScreenRect()
         {
-            UpdateCoords();
+            UpdateScreenCoords();
             Rectangle tmpRect = new Rectangle(screenX, screenY, sprite.GetWidth(), sprite.GetHeight());
             return tmpRect;
         }
 
         override public Vector2 ScreenPosition()
         {
-            UpdateCoords();
+            UpdateScreenCoords();
             Vector2 tmpPos = new Vector2((float)screenX, (float)screenY);
             return tmpPos;
         }
 
 
-        public void UpdateCoords()
+        public void UpdateScreenCoords()
         {
-            
-
+            // TODO
         }
+
+
 
         virtual public int GetHealth()
         {

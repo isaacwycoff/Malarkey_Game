@@ -36,7 +36,6 @@ namespace Malarkey
             pauseMenu,
             restart,
             exit
-            // shmUp               // secret shoot-em-up level
         };
 
         Fader fader;
@@ -52,28 +51,15 @@ namespace Malarkey
         // PlayerShip player;
         Hero playerHero;
 
-
         List<Entity> listOfEntities;
         List<Entity> listOfExplosions;
         List<Entity> listOfPowerUps;
 
+        // entities marked for deletion. we may not need this.
         List<Entity> entitiesToDelete;
 
         // new entities get temporarily put in here:
         List<Entity> newEntities;
-
-        // all of our textures:
-        /*
-        Texture2D cloudsTexture;
-        Texture2D explosionsTexture;
-        Texture2D blackPixelTexture;
-        Texture2D mainMenuTexture;
-        Texture2D deathScreenTexture;
-        Texture2D healthTickTexture;
-        Texture2D akimboGirlTexture;
-        Texture2D knightSwordTexture;
-        Texture2D jungleTexture;
-        */
 
         // TextureManager
         TextureManager textureManager = TextureManager.GetInstance();
@@ -91,6 +77,8 @@ namespace Malarkey
         HealthBar hudHealthBar;
 
         Floor worldFloor;
+
+        Camera playerCamera;
 
         public Game()
         {
