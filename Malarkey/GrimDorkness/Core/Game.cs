@@ -47,9 +47,6 @@ namespace Malarkey
 
         GameTime aliveTime;
 
-        // FIXME: cleanup this code -- rethink and reorganize
-        int totalKills = 0;
-
         // special reference to our player ship, so we don't have to search for it
         // every frame:
         // PlayerShip player;
@@ -253,22 +250,16 @@ namespace Malarkey
             entitiesToDelete = new List<Entity>();
             newEntities = new List<Entity>();
 
-            // worldFloor = new Floor(jungleTexture, Floor.DEFAULT_TILE_SIZE, Floor.DEFAULT_TILE_SIZE);
             worldFloor = new Floor(textureManager.GetTexture("TILE_JUNGLE"), Floor.DEFAULT_TILE_SIZE, Floor.DEFAULT_TILE_SIZE);
 
             // create the full-screen fader for fading in and out (how cinematic!)
-            // fader = new Fader(blackPixelTexture, fullScreen);
-
             fader = new Fader(textureManager.GetTexture("BLACK_PIXEL"), fullScreen);
 
             fader.fadeIn(Fader.DEFAULT_FADE_SHIFT);
 
-            //playerHero = new Hero(knightSwordTexture);
             playerHero = new Hero(textureManager.GetTexture("KNIGHT_SWORD"));
-
             listOfEntities.Add(playerHero);
 
-            //hudHealthBar = new HealthBar(healthTickTexture, playerHero.GetHealth(), playerHero.GetMaxHealth());
             hudHealthBar = new HealthBar(textureManager.GetTexture("HEALTH_TICK"), playerHero.GetHealth(), playerHero.GetMaxHealth());
         }
 
@@ -311,13 +302,6 @@ namespace Malarkey
             base.Update(gameTime);
         }
         // end Update()
-
-        // FIXME: might want to have a separate class for dealing with score
-        public void addPoints(int points)
-        {
-
-            totalKills += points;
-        }
 
         /// <summary>
         /// This is called when the game should draw itself.
@@ -470,25 +454,11 @@ namespace Malarkey
                             compareEntity1.TakeDamage(5);
                             compareEntity2.TakeDamage(5);
 
-                            // FIXME
-                            if (!compareEntity1.isVisible() || !compareEntity2.isVisible())
-                            {
-                                if (randomizer.Next(0, 10) < 1)
-                                {
-                                    // Entity tmpPowerUp = new PowerUp(powerUpsTexture, PowerUpType.repair, compareEntity1.CurrentPosition());
-                                    // listOfPowerUps.Add(tmpPowerUp);
-
-                                }
-
-                            }
-
                             // randomize the pitch of the explosion
                             // TODO: put this in a separate class
                             float pitchShift = -0.1f * (float)randomizer.Next(1, 5) - 0.5f;
 
                             explosion1.Play(0.20f, pitchShift, 0.0f);
-
-                            Vector2 tmpPosition = listOfEntities[compare_index2].CurrentPosition();
                         }
                     }
                 }

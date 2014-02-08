@@ -68,8 +68,8 @@ namespace Malarkey
             shield = 100;
             maxShield = shield;
             damage = 10;
-            xPos = 400;
-            yPos = 500;
+            screenX = 400;
+            screenY = 500;
             speed = 5;
             state = 0x00;
 
@@ -86,20 +86,19 @@ namespace Malarkey
 
         // the user has issued a command
         // the ship will attempt to comply
-//        public void SendCommand(PlayerCommand command, GameTime gameTime)
         public void SendCommand(HeroCommand command, GameTime gameTime)         // this probably needs to work differently
                                                                                 // to deal with mouse & gamepad
         {
             float timeScale = (float)gameTime.ElapsedGameTime.TotalSeconds;
             timeScale = 1.0f;
 
-            // default animation -- may get overwritten later in SendCommand:
-//            currentAnim = ShipAnim.FlyStraight;
-
             switch (command)
             {
                 case HeroCommand.MoveNorth:
                     {
+                        screenY -= (int)(speed * timeScale);
+                        if (screenY <= 0) screenY = 0;
+
                         break;
                     }
                 case HeroCommand.MoveEast:
@@ -141,8 +140,6 @@ namespace Malarkey
                     }
                 case PlayerCommand.FlyForward:
                     {
-                        yPos -= (int)(speed * timeScale);
-                        if (yPos <= 0) yPos = 0;
 
                         break;
                     }
@@ -205,7 +202,7 @@ namespace Malarkey
             } */
 
 //            sprite.UpdateRect(animFly[(int)currentFrame]);
-            sprite.Draw(new Vector2(xPos, yPos), SpriteEffects.None);
+            sprite.Draw(new Vector2(screenX, screenY), SpriteEffects.None);
 
 
         }

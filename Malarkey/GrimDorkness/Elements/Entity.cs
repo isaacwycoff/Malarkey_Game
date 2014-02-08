@@ -58,7 +58,12 @@ namespace Malarkey
         protected int speed;
         protected EntityState state;
 
+        protected int mapX, mapY;           // big coords - what X and Y in the grid?
+        protected float tileX, tileY;       // little coords - between 0.0 and 1.0. where in an individual tile?
+
         protected Team team;
+
+        protected Camera camera;
 
         public Entity()
         {
@@ -66,9 +71,29 @@ namespace Malarkey
             maxHealth = health;
             shield = 0;
             maxShield = 0;
+        }
+
+        override public Rectangle ScreenRect()
+        {
+            UpdateCoords();
+            Rectangle tmpRect = new Rectangle(screenX, screenY, sprite.GetWidth(), sprite.GetHeight());
+            return tmpRect;
+        }
+
+        override public Vector2 ScreenPosition()
+        {
+            UpdateCoords();
+            Vector2 tmpPos = new Vector2((float)screenX, (float)screenY);
+            return tmpPos;
+        }
+
+
+        public void UpdateCoords()
+        {
+            
 
         }
-        
+
         virtual public int GetHealth()
         {
             return health;

@@ -23,8 +23,7 @@ namespace Malarkey
 
     class Element
     {
-
-        protected int xPos, yPos;           // screenpos in pixels
+        protected int screenX, screenY;           // screenpos in pixels
         protected Sprite sprite;
 
         protected bool markedForDeath = false;    
@@ -35,9 +34,9 @@ namespace Malarkey
         /// <returns>
         /// Returns a Rectangle with dimensions & location of the sprite
         /// </returns>
-        public Rectangle ScreenRect()
+        virtual public Rectangle ScreenRect()
         {
-            Rectangle tmpRect = new Rectangle(xPos, yPos, sprite.GetWidth(), sprite.GetHeight());
+            Rectangle tmpRect = new Rectangle(screenX, screenY, sprite.GetWidth(), sprite.GetHeight());
             return tmpRect;
         }
 
@@ -63,16 +62,15 @@ namespace Malarkey
         virtual public void Update(GameTime gameTime)
         {
             // 
-
         }
 
         /// <summary>
         /// Returns current position in the form of a Vector2 object.
         /// </summary>
         /// <returns></returns>
-        public Vector2 CurrentPosition()
+        virtual public Vector2 ScreenPosition()
         {
-            Vector2 tmpPos = new Vector2((float)xPos, (float)yPos);
+            Vector2 tmpPos = new Vector2((float)screenX, (float)screenY);
             return tmpPos;
         }
 
@@ -83,24 +81,19 @@ namespace Malarkey
         virtual public Boolean isVisible()
         {
             if (markedForDeath == true) return false;
-            if (xPos < -100) return false;
-            if (yPos < -400) return false;
-            if (xPos > 1000) return false;
-            if (yPos > 800) return false;
+            // FIXME: magic numbers attached to the size of the screen.
+            if (screenX < -100) return false;
+            if (screenY < -400) return false;
+            if (screenX > 1000) return false;
+            if (screenY > 800) return false;
             return true;
         }
 
         public void Destroy()
         {
             markedForDeath = true;
-
-
         }
 
-
-
     }
-
- 
 
 }

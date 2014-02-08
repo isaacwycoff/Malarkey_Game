@@ -118,6 +118,7 @@
     <Compile Include="Animation\Animation.cs" />
     <Compile Include="Animation\AnimationPlayer.cs" />
     <Compile Include="Console\DevConsole.cs" />
+    <Compile Include="Core\Camera.cs" />
     <Compile Include="Core\Settings.cs" />
     <Compile Include="Core\TextureManager.cs" />
     <Compile Include="Elements\Entities\Hero.cs" />
