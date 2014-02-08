@@ -7,15 +7,12 @@ namespace Malarkey
 {
     class Camera
     {
-        // map coords of upper left corner
-        public int mapX { get; private set; }
-        public int mapY { get; private set; }
-        // tile coords of upper left corner (what part of the tile do we start on?
-        public float tileX { get; private set; }
-        public float tileY { get; private set; }
+        // map coords of upper left corner, in tiles
+        public double mapX { get; private set; }
+        public double mapY { get; private set; }
         // size in tiles, or fractions of tiles:
-        public float sizeX { get; private set; }
-        public float sizeY { get; private set; }
+        public double sizeX { get; private set; }
+        public double sizeY { get; private set; }
 
         private Entity focusEntity;
 
@@ -23,8 +20,6 @@ namespace Malarkey
         {
             this.mapX = 0;
             this.mapY = 0;
-            this.tileX = 0.0f;
-            this.tileY = 0.0f;
             this.sizeX = 32.0f;
             this.sizeY = 16.0f;
             this.focusEntity = null;
@@ -35,12 +30,10 @@ namespace Malarkey
             this.focusEntity = focus;
 
             // FIXME: this should center around the focus
-            this.mapX = 0;
-            this.mapY = 0;
-            this.tileX = 0.0f;
-            this.tileY = 0.0f;
-            this.sizeX = 32.0f;
-            this.sizeY = 16.0f;            
+            this.mapX = 0.0;
+            this.mapY = 0.0;
+            this.sizeX = 32.0;
+            this.sizeY = 16.0;            
         }
 
         public Camera(int mapX = 0, int mapY = 0, float tileX = 0.0f, float tileY = 0.0f, float sizeX = 32.0f, float sizeY = 16.0f)
@@ -58,9 +51,6 @@ namespace Malarkey
 
             this.mapX = focusEntity.mapX - HALFSCREEN_X;
             this.mapY = focusEntity.mapY - HALFSCREEN_Y;
-
-            this.tileX = focusEntity.tileX;
-            this.tileY = focusEntity.tileY;
 
         }
 

@@ -28,6 +28,8 @@ namespace Malarkey
         const int SCREEN_WIDTH = 800;
         const int SCREEN_HEIGHT = 600;
 
+        const Boolean IS_FULL_SCREEN = false;
+
         enum GameStatus
         {
             startMenu,
@@ -90,15 +92,13 @@ namespace Malarkey
 
             this.graphics.PreferredBackBufferWidth = SCREEN_WIDTH;
             this.graphics.PreferredBackBufferHeight = SCREEN_HEIGHT;
-
-            // set this later:
-//            this.graphics.IsFullScreen = true;
+            this.graphics.IsFullScreen = IS_FULL_SCREEN;
 
             Content.RootDirectory = "Content";
 
-
-
             fullScreen = new Rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+            playerCamera = new Camera();        // FIXME - tie this to the player
 
         }
 
@@ -245,7 +245,7 @@ namespace Malarkey
 
             fader.fadeIn(Fader.DEFAULT_FADE_SHIFT);
 
-            playerHero = new Hero(textureManager.GetTexture("KNIGHT_SWORD"));
+            playerHero = new Hero(textureManager.GetTexture("KNIGHT_SWORD"), playerCamera);
             listOfEntities.Add(playerHero);
 
             hudHealthBar = new HealthBar(textureManager.GetTexture("HEALTH_TICK"), playerHero.GetHealth(), playerHero.GetMaxHealth());
@@ -311,8 +311,7 @@ namespace Malarkey
                             DepthStencilState.Default,          //
                             RasterizerState.CullNone);          // TODO: Research
 
-            // new code for the top-down
-            // should split off the old drawing code for the SHMUP
+            // draw the floor:
             worldFloor.Draw(gameTime);
 
             // spit out all the entities:
@@ -469,13 +468,9 @@ namespace Malarkey
             foreach (Entity tmpEntity in entitiesToDelete)
             {
                 listOfEntities.Remove(tmpEntity);
-                // if (tmpEntity is EnemyShip) --numberOfEnemies;
             }
 
         }
-
-
-
     }
 
 

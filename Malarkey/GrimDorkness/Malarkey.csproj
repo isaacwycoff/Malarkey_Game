@@ -197,7 +197,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Dialog\" />
-    <Folder Include="Elements\Entities\Deprecated\" />
     <Folder Include="WorldMap\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

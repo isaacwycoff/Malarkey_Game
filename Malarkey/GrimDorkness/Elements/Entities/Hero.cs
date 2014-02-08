@@ -40,43 +40,34 @@ namespace Malarkey
         List<Rectangle> animMoveEast;
         List<Rectangle> animMoveNorth;
 
-        public Hero(Texture2D texture)
+        public Hero(Texture2D texture, Camera camera)
         {
+            this.camera = camera;
 
             animIdleSouth = new List<Rectangle>
             {
                 new Rectangle(234, 738, 66, 53)
-
-
-
             };
 
-            // set up the rectangles for the ship's animation:
-            // ideally this would be stored in an external file
-/*            animFly = new List<Rectangle>
-            {
-                new Rectangle(0, 140, 23, 29),                  // flying far left
-                new Rectangle(24, 140, 23, 29),                 // flying sort-of left
-                new Rectangle(48, 140, 23, 29),                 // flying straight
-                new Rectangle(72, 140, 23, 29),                 // flying sort-of right
-                new Rectangle(96, 140, 23, 29),                 // flying far right
-            }; */
-
             // these should be defined in an external file:
-            health = 100;
-            maxHealth = health;
-            shield = 100;
-            maxShield = shield;
-            damage = 10;
-            screenX = 400;
-            screenY = 500;
-            speed = 5;
-            state = 0x00;
+            this.health = 100;
+            this.maxHealth = health;
+            this.shield = 100;
+            this.maxShield = shield;
+            this.damage = 10;
+
+            this.mapX = 6.0;
+            this.mapY = 6.0;
+
+            this.UpdateScreenCoords();
+
+            // speed is represented as 1/128th of a tile
+            this.speed = 13.0;
+            this.state = 0x00;
 
             team = Team.Player;
 
             sprite = new Sprite(texture, new Rectangle(234, 738, 66, 53), 1.0);
-
         }
 
         public override int GetMaxHealth()
@@ -96,21 +87,23 @@ namespace Malarkey
             {
                 case HeroCommand.MoveNorth:
                     {
-                        screenY -= (int)(speed * timeScale);
-                        if (screenY <= 0) screenY = 0;
-
+                        MoveDirection(Direction.North, timeScale);
+//                        currentAnim =
                         break;
                     }
                 case HeroCommand.MoveEast:
                     {
+                        MoveDirection(Direction.East, timeScale);
                         break;
                     }
                 case HeroCommand.MoveSouth:
                     {
+                        MoveDirection(Direction.South, timeScale);
                         break;
                     }
                 case HeroCommand.MoveWest:
                     {
+                        MoveDirection(Direction.West, timeScale);
                         break;
                     }
 
@@ -171,9 +164,12 @@ namespace Malarkey
 
 
         }
-
+        
         public override void Draw(GameTime gameTime)
         {
+
+            base.Draw(gameTime);
+
             // FIXME: where do we deal with this animation stuff?
             // should be dealt with in the sprite, methinks
 
@@ -202,7 +198,6 @@ namespace Malarkey
             } */
 
 //            sprite.UpdateRect(animFly[(int)currentFrame]);
-            sprite.Draw(new Vector2(screenX, screenY), SpriteEffects.None);
 
 
         }

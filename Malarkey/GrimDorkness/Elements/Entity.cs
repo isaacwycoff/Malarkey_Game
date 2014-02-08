@@ -55,16 +55,12 @@ namespace Malarkey
         protected int maxShield;
 
         protected int damage;
-        protected int speed;
+        protected double speed;
         protected EntityState state;
 
-        // big coords - what X and Y in the grid?
-        public int mapX { get; protected set; }
-        public int mapY { get; protected set; }
-
-        // little coords - between 0.0 and 1.0. where in an individual tile?
-        public float tileX { get; protected set; }
-        public float tileY { get; protected set; }
+        // big cooords- what X and Y in the grid?
+        public double mapX { get; protected set; }
+        public double mapY { get; protected set; }
 
         protected Team team;
 
@@ -72,10 +68,17 @@ namespace Malarkey
 
         public Entity()
         {
+            // base.
+            camera = null;
             health = 1;
             maxHealth = health;
             shield = 0;
             maxShield = 0;
+        }
+
+        public void SetCamera(Camera camera)
+        {
+            this.camera = camera;
         }
 
         override public Rectangle ScreenRect()
@@ -95,9 +98,21 @@ namespace Malarkey
 
         public void UpdateScreenCoords()
         {
-            // TODO
+            if (camera == null) return;     // error silently
+
+            double TILE_SIZE = 32.0;
+
+            screenX = (int)((mapX - camera.mapX) * TILE_SIZE);
+            screenY = (int)((mapY - camera.mapY) * TILE_SIZE);
+
         }
 
+        public override void Draw(GameTime gameTime)
+        {
+            this.UpdateScreenCoords();
+
+            sprite.Draw(new Vector2(screenX, screenY), SpriteEffects.None);
+        }
 
 
         virtual public int GetHealth()
@@ -134,6 +149,52 @@ namespace Malarkey
 
 
         }
+
+        protected void MoveDirection(Direction direction, float timeScale)
+        {
+            const double COS_45 = 0.7071;
+
+            switch (direction)
+            {
+                case Direction.East:
+                    mapX += speed * timeScale / 128.0;
+                    break;
+                case Direction.North:
+                    mapY -= speed * timeScale / 128.0;
+                    break;
+                case Direction.NorthEast:
+                    mapY -= (speed * timeScale / 128.0) * COS_45;
+                    mapX += (speed * timeScale / 128.0) * COS_45;
+                    break;
+                case Direction.NorthWest:
+                    break;
+                case Direction.West:
+                    mapX -= speed * timeScale / 128.0;
+                    break;
+                case Direction.South:
+                    mapY += speed * timeScale / 128.0;
+                    break;
+                case Direction.SouthEast:
+                    mapY += (speed * timeScale / 128.0) * COS_45;
+                    mapX += (speed * timeScale / 128.0) * COS_45;
+                    break;
+                case Direction.SouthWest:
+                    mapY += (speed * timeScale / 128.0) * COS_45;
+                    mapX -= (speed * timeScale / 128.0) * COS_45;
+                    break;
+                default:
+                    // error
+                    break;
+            }
+            // check bounds --
+            // should also check collisions?
+            if (mapX <= 0.0) mapX = 0.0;
+            if (mapY <= 0.0) mapY = 0.0;
+            if (mapX >= 16.0) mapX = 16.0;
+            if (mapY >= 16.0) mapY = 16.0;
+
+        }
+
 
         virtual public bool Collision()
         {
