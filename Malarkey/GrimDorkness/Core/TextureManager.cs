@@ -12,11 +12,11 @@ namespace Malarkey
     {
         private static TextureManager manager = new TextureManager();
         private List<TextureReference> textureReferences;
-        private ContentManager _content = null;
+        private ContentManager content = null;
 
         private TextureManager()
         {
-            textureReferences = new List<TextureReference>;
+            textureReferences = new List<TextureReference>();
         }
 
         public static TextureManager GetInstance()
@@ -26,13 +26,40 @@ namespace Malarkey
 
         public Boolean SetContentManager(ContentManager content)
         {
-            content = _content;
+            this.content = content;
             return true;
         }
 
         public ContentManager GetContentManager()
         {
-            return _content;
+            return this.content;
+        }
+
+        public void AddTextures(String foo = null)
+        {
+            // loads all the textures from a file, or associated with a level
+            this.AddTexture("BLACK_PIXEL", "BlackPixel");
+            this.AddTexture("START_SCREEN", "startScreen");
+            this.AddTexture("HEALTH_TICK", "healthTIck");
+            this.AddTexture("AKIMBO_GIRL", "akimbogirlstand");
+            this.AddTexture("KNIGHT_SWORD", "knight_sword");
+            this.AddTexture("TILE_JUNGLE", "tile_jungle");
+            /*
+            myTexture = Content.Load<Texture2D>("Graphics/player_ship");
+            enemyTexture = Content.Load<Texture2D>("Graphics/enemy_ship");
+            projectileTexture = Content.Load<Texture2D>("Graphics/projectiles");
+            cloudsTexture = Content.Load<Texture2D>("Graphics/clouds1");
+            explosionsTexture = Content.Load<Texture2D>("Graphics/explosions");
+            zeppelinTexture = Content.Load<Texture2D>("Graphics/zeppelin");
+            blackPixelTexture = Content.Load<Texture2D>("Graphics/BlackPixel");
+            mainMenuTexture = Content.Load<Texture2D>("Graphics/startScreen");
+            deathScreenTexture = Content.Load<Texture2D>("Graphics/endScreen");      // FIXME
+            healthTickTexture = Content.Load<Texture2D>("Graphics/healthTick");
+            powerUpsTexture = Content.Load<Texture2D>("Graphics/powerups");
+            akimboGirlTexture = Content.Load<Texture2D>("Graphics/akimbogirlstand");
+            knightSwordTexture = Content.Load<Texture2D>("Graphics/knight_sword");
+            jungleTexture = Content.Load<Texture2D>("Graphics/tile_jungle");
+            */
         }
 
         public void AddTexture(String name, String path)

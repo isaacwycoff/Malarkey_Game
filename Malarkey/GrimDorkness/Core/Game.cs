@@ -66,28 +66,20 @@ namespace Malarkey
         List<Entity> newEntities;
 
         // all of our textures:
-        Texture2D myTexture;
-        Texture2D enemyTexture;
-        Texture2D projectileTexture;
+        /*
         Texture2D cloudsTexture;
         Texture2D explosionsTexture;
-        Texture2D zeppelinTexture;
         Texture2D blackPixelTexture;
         Texture2D mainMenuTexture;
         Texture2D deathScreenTexture;
         Texture2D healthTickTexture;
-        Texture2D powerUpsTexture;
         Texture2D akimboGirlTexture;
         Texture2D knightSwordTexture;
         Texture2D jungleTexture;
+        */
 
         // TextureManager
         TextureManager textureManager = TextureManager.GetInstance();
-        // TextureManager.SetContentManager(Content
-
-        // list reference to our textures. not currently used:
-        List<Texture2D> listOfTextures;
-
 
         SoundEffect explosion1;
         SoundEffect gunShot1;
@@ -119,9 +111,9 @@ namespace Malarkey
 
             Content.RootDirectory = "Content";
 
+
+
             fullScreen = new Rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-
-
 
         }
 
@@ -239,24 +231,12 @@ namespace Malarkey
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Sprite.InitClass(spriteBatch);
 
+            textureManager.SetContentManager(Content);
+
             devFont = Content.Load<SpriteFont>("Fonts/devFont");
 
-            // TODO: use this.Content to load your game content here
-
-            myTexture = Content.Load<Texture2D>("Graphics/player_ship");
-            enemyTexture = Content.Load<Texture2D>("Graphics/enemy_ship");
-            projectileTexture = Content.Load<Texture2D>("Graphics/projectiles");
-            cloudsTexture = Content.Load<Texture2D>("Graphics/clouds1");
-            explosionsTexture = Content.Load<Texture2D>("Graphics/explosions");
-            zeppelinTexture = Content.Load<Texture2D>("Graphics/zeppelin");
-            blackPixelTexture = Content.Load<Texture2D>("Graphics/BlackPixel");
-            mainMenuTexture = Content.Load<Texture2D>("Graphics/startScreen");
-            deathScreenTexture = Content.Load<Texture2D>("Graphics/endScreen");      // FIXME
-            healthTickTexture = Content.Load<Texture2D>("Graphics/healthTick");
-            powerUpsTexture = Content.Load<Texture2D>("Graphics/powerups");
-            akimboGirlTexture = Content.Load<Texture2D>("Graphics/akimbogirlstand");
-            knightSwordTexture = Content.Load<Texture2D>("Graphics/knight_sword");
-            jungleTexture = Content.Load<Texture2D>("Graphics/tile_jungle");
+            // TODO: use this.Content to load your game content here            
+            textureManager.AddTextures();
 
             explosion1 = Content.Load<SoundEffect>("Sfx/explosion1");
             gunShot1 = Content.Load<SoundEffect>("Sfx/magnum1");
@@ -268,45 +248,28 @@ namespace Malarkey
             MediaPlayer.Volume = 0.0f;          // FIXME: get this from Settings        
 
             listOfEntities = new List<Entity>();
-
             listOfExplosions = new List<Entity>();
-
             listOfPowerUps = new List<Entity>();
-
             entitiesToDelete = new List<Entity>();
-
             newEntities = new List<Entity>();
 
-
-
-            worldFloor = new Floor(jungleTexture, Floor.DEFAULT_TILE_SIZE, Floor.DEFAULT_TILE_SIZE);
-
-            // this isn't necessary right now, but having a List later, esp. when file-names
-            // are drawn from external data, will be very useful. probably want to have a separate
-            // class to deal with texture data & names
-            listOfTextures = new List<Texture2D> {
-                myTexture,
-                enemyTexture,
-                projectileTexture,
-                cloudsTexture,
-                explosionsTexture,
-                zeppelinTexture,
-                blackPixelTexture,
-                healthTickTexture,
-                powerUpsTexture,
-                akimboGirlTexture,
-                knightSwordTexture
-            };
+            // worldFloor = new Floor(jungleTexture, Floor.DEFAULT_TILE_SIZE, Floor.DEFAULT_TILE_SIZE);
+            worldFloor = new Floor(textureManager.GetTexture("TILE_JUNGLE"), Floor.DEFAULT_TILE_SIZE, Floor.DEFAULT_TILE_SIZE);
 
             // create the full-screen fader for fading in and out (how cinematic!)
-            fader = new Fader(blackPixelTexture, fullScreen);
+            // fader = new Fader(blackPixelTexture, fullScreen);
+
+            fader = new Fader(textureManager.GetTexture("BLACK_PIXEL"), fullScreen);
+
             fader.fadeIn(Fader.DEFAULT_FADE_SHIFT);
 
-            playerHero = new Hero(knightSwordTexture);
+            //playerHero = new Hero(knightSwordTexture);
+            playerHero = new Hero(textureManager.GetTexture("KNIGHT_SWORD"));
 
             listOfEntities.Add(playerHero);
 
-            hudHealthBar = new HealthBar(healthTickTexture, playerHero.GetHealth(), playerHero.GetMaxHealth());
+            //hudHealthBar = new HealthBar(healthTickTexture, playerHero.GetHealth(), playerHero.GetMaxHealth());
+            hudHealthBar = new HealthBar(textureManager.GetTexture("HEALTH_TICK"), playerHero.GetHealth(), playerHero.GetMaxHealth());
         }
 
 

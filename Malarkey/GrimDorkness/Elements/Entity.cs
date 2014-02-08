@@ -69,12 +69,12 @@ namespace Malarkey
 
         }
         
-        public int GetHealth()
+        virtual public int GetHealth()
         {
             return health;
         }
 
-        public int GetMaxHealth()
+        virtual public int GetMaxHealth()
         {
             return maxHealth;
         }

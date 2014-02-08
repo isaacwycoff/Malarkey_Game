@@ -77,17 +77,9 @@ namespace Malarkey
 
             sprite = new Sprite(texture, new Rectangle(234, 738, 66, 53), 1.0);
 
-//            sprite = new Sprite(texture, animFly[2], 2.0);  // TODO: get rid of magic numbers!
-
-
-            // PlayerShip specific:
-//            currentAnim = ShipAnim.FlyStraight;
-
-
-
         }
 
-        public int GetMaxHealth()
+        public override int GetMaxHealth()
         {
             return maxHealth;
         }
