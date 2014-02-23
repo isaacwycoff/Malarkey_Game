@@ -25,8 +25,8 @@ namespace Malarkey
     public class Game : Microsoft.Xna.Framework.Game
     {
         // FIXME: these shouldn't be constant
-        const int SCREEN_WIDTH = 800;
-        const int SCREEN_HEIGHT = 600;
+        const int SCREEN_WIDTH = 1024;      // 800
+        const int SCREEN_HEIGHT = 768;      // 600
 
         const Boolean IS_FULL_SCREEN = false;
 
@@ -72,7 +72,7 @@ namespace Malarkey
 
         Random randomizer;      // random number generator used throughout the class
 
-        Rectangle fullScreen;       // rectangle used to determine the dimensions of the screen for drawing
+        Rectangle fullScreen;   // rectangle used to determine the dimensions of the screen for drawing
 
         GameStatus gameState;
 
@@ -142,52 +142,44 @@ namespace Malarkey
                 return;
             }
 
+            HeroCommand command = HeroCommand.Idle;
+
             // consider non-movement 1st, so movement states don't get over-written
             // incorrectly:
             if (Keyboard.GetState().IsKeyDown(Keys.Space) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.A))
             {
-                playerHero.SendCommand(HeroCommand.AttackMelee, gameTime);
+                command = command | HeroCommand.AttackMelee;
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.Z))
             {
-                // player.SendCommand(PlayerCommand.AltFire, gameTime);
-                noInput = false;
+                // noInput = false;
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.Up) || GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.Y > 0.0)
             {
-                // player.SendCommand(PlayerCommand.FlyForward, gameTime);
-                playerHero.SendCommand(HeroCommand.MoveNorth, gameTime);
-                noInput = false;
-
+                command = command | HeroCommand.MoveNorth;
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.Down) || GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.Y < 0.0)
             {
-                playerHero.SendCommand(HeroCommand.MoveSouth, gameTime);
-                noInput = false;
-
+                command = command | HeroCommand.MoveSouth;
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.Right) || GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X > 0.0)
             {
-                playerHero.SendCommand(HeroCommand.MoveEast, gameTime);
-
-                noInput = false;
+                command = command | HeroCommand.MoveEast;
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.Left) || GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X < 0.0)
-            {
-                playerHero.SendCommand(HeroCommand.MoveWest, gameTime);
-
-                noInput = false;
+            {                
+                command = command | HeroCommand.MoveWest;
             }
 
-            // no input given -- go idle
-            if (noInput)
+            // actually, we might want to send an idel signal as well
+            if (command != HeroCommand.Idle)
             {
-
+                playerHero.SendCommand(command, gameTime);
             }
 
         }
@@ -417,10 +409,38 @@ namespace Malarkey
 
         private void ResolveCollisions(GameTime gameTime)
         {
+            Rectangle MAP_BOUNDS = new Rectangle(0, 0, 16, 16);
+
+            /*
+            if (mapX <= 0.0) mapX = 0.0;
+            if (mapY <= 0.0) mapY = 0.0;
+            if (mapX >= 16.0) mapX = 16.0;
+            if (mapY >= 16.0) mapY = 16.0;
+            */
+
+
+            foreach (Entity currentEntity in listOfEntities)
+            {
+                if (currentEntity.isAttemptingToMove)
+                {
+                    double attemptedX = currentEntity.attemptedMapX;
+                    double attemptedY = currentEntity.attemptedMapY;
+
+                    if (attemptedY > MAP_BOUNDS.Bottom) attemptedY = MAP_BOUNDS.Bottom;
+                    if (attemptedY < MAP_BOUNDS.Top) attemptedY = MAP_BOUNDS.Top;
+                    if (attemptedX > MAP_BOUNDS.Right) attemptedX = MAP_BOUNDS.Right;
+                    if (attemptedX < MAP_BOUNDS.Left) attemptedX = MAP_BOUNDS.Left;
+
+                    currentEntity.setMapCoords(attemptedX, attemptedY);
+                }
+            }
 
             // collision detection -- FIXME: this should be its own function at the very least.
             for (int compare_index1 = 0; compare_index1 < listOfEntities.Count; compare_index1++)
             {
+
+
+
                 for (int compare_index2 = compare_index1 + 1; compare_index2 < listOfEntities.Count; compare_index2++)
                 {
                     Entity compareEntity1 = listOfEntities[compare_index1];

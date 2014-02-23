@@ -16,14 +16,14 @@ namespace Malarkey
 {
     public enum HeroCommand
     {
-        Idle = 0,
-        MoveWest = 1,
-        MoveEast = 2,
-        MoveNorth = 3,
-        MoveSouth = 4,
-        AttackMelee = 5,
-        AttackRanged = 6,
-        DrinkPotion = 7
+        Idle = 0x0,
+        MoveWest = 0x1,
+        MoveEast = 0x2,
+        MoveNorth = 0x4,
+        MoveSouth = 0x8,
+        AttackMelee = 0x10,
+        AttackRanged = 0x20,
+        DrinkPotion = 0x40
     }
 
     
@@ -43,11 +43,19 @@ namespace Malarkey
         public Hero(Texture2D texture, Camera camera)
         {
             this.camera = camera;
+            // TODO: this is temporary
 
             animIdleSouth = new List<Rectangle>
             {
                 new Rectangle(234, 738, 66, 53)
             };
+
+            /*
+            walkSouth = new List<Rectangle>
+            {
+
+            };
+            */
 
             // these should be defined in an external file:
             this.health = 100;
@@ -56,8 +64,9 @@ namespace Malarkey
             this.maxShield = shield;
             this.damage = 10;
 
-            this.mapX = 6.0;
-            this.mapY = 6.0;
+/*            this.mapX = 6.0;
+            this.mapY = 6.0; */
+            this.setMapCoords(6.0, 6.0);            // FIXME: this should NOT be set here
 
             this.UpdateScreenCoords();
 
@@ -83,85 +92,49 @@ namespace Malarkey
             float timeScale = (float)gameTime.ElapsedGameTime.TotalSeconds;
             timeScale = 1.0f;
 
-            switch (command)
+            // FIXME: this is super-ugly. is there a better way to deal with this?
+            if (command.HasFlag(HeroCommand.MoveNorth))
             {
-                case HeroCommand.MoveNorth:
-                    {
-                        MoveDirection(Direction.North, timeScale);
-//                        currentAnim =
-                        break;
-                    }
-                case HeroCommand.MoveEast:
-                    {
-                        MoveDirection(Direction.East, timeScale);
-                        break;
-                    }
-                case HeroCommand.MoveSouth:
-                    {
-                        MoveDirection(Direction.South, timeScale);
-                        break;
-                    }
-                case HeroCommand.MoveWest:
-                    {
-                        MoveDirection(Direction.West, timeScale);
-                        break;
-                    }
-
-/*                case PlayerCommand.Idle:
-                    {
-                        // no commands from the user
-                        break;
-                    }
-                case PlayerCommand.FlyLeft:
-                    {
-                        xPos -= (int)(speed * timeScale);
-                        if (xPos <= 0) xPos = 0;
-
-//                        currentAnim = ShipAnim.FlyLeft;
-
-                        break;
-                    }
-                case PlayerCommand.FlyRight:
-                    {
-                        xPos += (int)(speed * timeScale);
-                        if (xPos >= 700) xPos = 700;
-
-
-//                        currentAnim = ShipAnim.FlyRight;
-
-                        break;
-                    }
-                case PlayerCommand.FlyForward:
-                    {
-
-                        break;
-                    }
-                case PlayerCommand.FlyBackward:
-                    {
-                        yPos += (int)(speed * timeScale);
-                        if (yPos >= 500) yPos = 500;       // TODO: get rid of magic numbers
-
-
-                        break;
-                    }
-                case PlayerCommand.Fire:
-                    {
-//                        fireCooldownRemaining = fireDelay;
-
-                        break;
-                    }
-                case PlayerCommand.AltFire:
-                    {
-
-                        break;
-                    } */
-                default:
-                    {
-
-                        break;
-                    }
+                if (command.HasFlag(HeroCommand.MoveEast))
+                {
+                    MoveDirection(Direction.NorthEast, timeScale);
+                }
+                else if (command.HasFlag(HeroCommand.MoveWest))
+                {
+                    MoveDirection(Direction.NorthWest, timeScale);
+                }
+                else if (command.HasFlag(HeroCommand.MoveSouth))
+                {
+                    // don't move!
+                }
+                else
+                {
+                    MoveDirection(Direction.North, timeScale);
+                }
             }
-
+            else if (command.HasFlag(HeroCommand.MoveSouth))
+            {
+                if (command.HasFlag(HeroCommand.MoveEast))
+                {
+                    MoveDirection(Direction.SouthEast, timeScale);
+                }
+                else if (command.HasFlag(HeroCommand.MoveWest))
+                {
+                    MoveDirection(Direction.SouthWest, timeScale);
+                }
+                else
+                {
+                    MoveDirection(Direction.South, timeScale);
+                }
+            }
+            else if (command.HasFlag(HeroCommand.MoveWest))
+            {
+                MoveDirection(Direction.West, timeScale);
+            }
+            else if (command.HasFlag(HeroCommand.MoveEast))
+            {
+                MoveDirection(Direction.East, timeScale);
+            }
 
         }
         

@@ -62,6 +62,21 @@ namespace Malarkey
         public double mapX { get; protected set; }
         public double mapY { get; protected set; }
 
+        public double attemptedMapX { get; protected set; }
+        public double attemptedMapY { get; protected set; }
+        public Boolean isAttemptingToMove { get; protected set; }
+
+        public void setMapCoords(double x, double y)
+        {
+            this.mapX = x;
+            this.mapY = y;
+            this.isAttemptingToMove = false;
+        }
+
+        // collision size:
+        public double sizeX { get; protected set; }
+        public double sizeY { get; protected set; }
+
         protected Team team;
 
         protected Camera camera;
@@ -74,6 +89,10 @@ namespace Malarkey
             maxHealth = health;
             shield = 0;
             maxShield = 0;
+
+            attemptedMapX = mapX;
+            attemptedMapY = mapY;
+            isAttemptingToMove = false;
         }
 
         public void SetCamera(Camera camera)
@@ -146,41 +165,54 @@ namespace Malarkey
                 return false;
             }
             return true;
-
-
         }
 
         protected void MoveDirection(Direction direction, float timeScale)
         {
             const double COS_45 = 0.7071;
+            double timeMult = timeScale / 128.0;
 
             switch (direction)
             {
                 case Direction.East:
-                    mapX += speed * timeScale / 128.0;
+                    this.attemptedMapY = mapY;
+                    this.attemptedMapX = mapX + (speed * timeMult);
+
                     break;
                 case Direction.North:
-                    mapY -= speed * timeScale / 128.0;
+                    this.attemptedMapY = mapX;
+                    this.attemptedMapY = mapY - (speed * timeMult);
+
                     break;
                 case Direction.NorthEast:
-                    mapY -= (speed * timeScale / 128.0) * COS_45;
-                    mapX += (speed * timeScale / 128.0) * COS_45;
+                    this.attemptedMapY = mapY - (speed * timeMult * COS_45);
+                    this.attemptedMapX = mapX + (speed * timeMult * COS_45);
+
                     break;
                 case Direction.NorthWest:
+                    this.attemptedMapY = mapY - (speed * timeMult * COS_45);
+                    this.attemptedMapX = mapX - (speed * timeMult * COS_45);
+
                     break;
                 case Direction.West:
-                    mapX -= speed * timeScale / 128.0;
+                    this.attemptedMapX = mapX - (speed * timeMult);
+                    this.attemptedMapY = mapY;
+
                     break;
                 case Direction.South:
-                    mapY += speed * timeScale / 128.0;
+                    this.attemptedMapY = mapY + (speed * timeMult);
+                    this.attemptedMapX = mapX;
+
                     break;
                 case Direction.SouthEast:
-                    mapY += (speed * timeScale / 128.0) * COS_45;
-                    mapX += (speed * timeScale / 128.0) * COS_45;
+                    this.attemptedMapY = mapY + (speed * timeMult * COS_45);
+                    this.attemptedMapX = mapX + (speed * timeMult * COS_45);
+
                     break;
                 case Direction.SouthWest:
-                    mapY += (speed * timeScale / 128.0) * COS_45;
-                    mapX -= (speed * timeScale / 128.0) * COS_45;
+                    this.attemptedMapY = mapY + (speed * timeMult * COS_45);
+                    this.attemptedMapX = mapX - (speed * timeMult * COS_45);
+
                     break;
                 default:
                     // error
@@ -188,11 +220,8 @@ namespace Malarkey
             }
             // check bounds --
             // should also check collisions?
-            if (mapX <= 0.0) mapX = 0.0;
-            if (mapY <= 0.0) mapY = 0.0;
-            if (mapX >= 16.0) mapX = 16.0;
-            if (mapY >= 16.0) mapY = 16.0;
-
+            
+            this.isAttemptingToMove = true;
         }
 
 
