@@ -50,12 +50,15 @@ namespace Malarkey
                 new Rectangle(234, 738, 66, 53)
             };
 
-            /*
-            walkSouth = new List<Rectangle>
+            
+            animMoveSouth = new List<Rectangle>
             {
+                new Rectangle(30, 669, 66, 53),
+                new Rectangle(96, 669, 66, 53),
+                new Rectangle(160, 669, 66, 53)
 
             };
-            */
+            
 
             // these should be defined in an external file:
             this.health = 100;
@@ -64,8 +67,6 @@ namespace Malarkey
             this.maxShield = shield;
             this.damage = 10;
 
-/*            this.mapX = 6.0;
-            this.mapY = 6.0; */
             this.setMapCoords(6.0, 6.0);            // FIXME: this should NOT be set here
 
             this.UpdateScreenCoords();
@@ -140,8 +141,10 @@ namespace Malarkey
         
         public override void Draw(GameTime gameTime)
         {
+            sprite.UpdateRect(animMoveSouth[1]);
 
             base.Draw(gameTime);
+
 
             // FIXME: where do we deal with this animation stuff?
             // should be dealt with in the sprite, methinks

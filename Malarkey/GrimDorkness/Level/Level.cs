@@ -22,6 +22,12 @@ namespace Malarkey
 
         int height, width;
 
+        public void DrawGround()
+        {
+
+
+        }
+
         public Level()
         {
             // TODO: these will be determined by the level we're loading in the future

@@ -16,11 +16,11 @@ namespace Malarkey
 {
     class DevConsole
     {
-        string[] screenOutput;
+        string[][] screenOutput;
 
         public DevConsole()
         {
-            screenOutput = new string[20];          // FIXME: Magic numbers
+            // screenOutput = new string[CONSOLE_LINES][];          // FIXME: Magic numbers
 
 
         }

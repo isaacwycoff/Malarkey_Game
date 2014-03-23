@@ -119,12 +119,14 @@
     <Compile Include="Animation\AnimationPlayer.cs" />
     <Compile Include="Console\DevConsole.cs" />
     <Compile Include="Core\Camera.cs" />
+    <Compile Include="Core\ElementManager.cs" />
     <Compile Include="Core\Settings.cs" />
     <Compile Include="Core\TextureManager.cs" />
     <Compile Include="Elements\Entities\Hero.cs" />
     <Compile Include="Elements\Entity.cs" />
     <Compile Include="Core\Element.cs" />
     <Compile Include="Elements\Effects\Fader.cs" />
+    <Compile Include="Elements\EntityFactory.cs" />
     <Compile Include="Elements\HUD\HealthBar.cs" />
     <Compile Include="Elements\HUDElement.cs" />
     <Compile Include="Elements\World\Floor.cs" />
