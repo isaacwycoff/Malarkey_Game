@@ -141,13 +141,6 @@ namespace Malarkey
 
             Rectangle MAP_BOUNDS = new Rectangle(0, 0, 16, 16);
 
-            /*
-            if (mapX <= 0.0) mapX = 0.0;
-            if (mapY <= 0.0) mapY = 0.0;
-            if (mapX >= 16.0) mapX = 16.0;
-            if (mapY >= 16.0) mapY = 16.0;
-            */
-
             foreach (Entity currentEntity in listOfEntities)
             {
                 if (currentEntity.isAttemptingToMove)

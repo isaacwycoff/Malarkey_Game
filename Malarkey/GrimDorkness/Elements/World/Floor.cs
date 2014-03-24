@@ -25,19 +25,22 @@ namespace Malarkey
         int tileWidth = DEFAULT_TILE_SIZE;
         int tileHeight = DEFAULT_TILE_SIZE;
 
+        int mapWidth = 64;
+        int mapHeight = 64;
+
         int[,] textures;
         int[,] brightness;
 
-//        string[,] names = new string[5, 4];
+        Camera camera;
 
-        public Floor(Texture2D texture, int newTileWidth, int newTileHeight)
+        public Floor(Texture2D texture, int tileWidth, int tileHeight, Camera camera)
         {
-            textures = new int[32, 32];
-            brightness = new int[32, 32];
+            textures = new int[mapWidth, mapHeight];
+            brightness = new int[mapWidth, mapHeight];
 
-            for (int x = 0; x < 32; x++)
+            for (int x = 0; x < mapWidth; x++)
             {
-                for (int y = 0; y < 32; y++)
+                for (int y = 0; y < mapHeight; y++)
                 {
                     textures[x, y] = x % 4 + 1;
                     brightness[x, y] = (x + 2) * 16;
@@ -45,23 +48,32 @@ namespace Malarkey
                 }
             }
             
-            tileWidth = newTileWidth;
-            tileHeight = newTileHeight;
+            this.tileWidth = tileWidth;
+            this.tileHeight = tileHeight;
+            this.camera = camera;
 
-            Rectangle textureRect = new Rectangle(0, 0, tileWidth, tileHeight);
+            Rectangle textureRect = new Rectangle(0, 0, this.tileWidth, this.tileHeight);
 
             sprite = new Sprite(texture, textureRect, 2.0);
 
         }
 
+        public void SetCamera(Camera camera)
+        {
+            this.camera = camera;
+        }
+
+
 
         public override void Draw(GameTime gameTime)
         {
-            sprite.UpdateRect(new Rectangle(32, 0, 32, 32));
+            // TODO: if camera hasn't been set, error out
 
-            for (int x = 0; x < 16; x++)
+            // sprite.UpdateRect(new Rectangle(32, 0, 32, 32));
+
+            for (int x = 0; x < 32; x++)
             {
-                for (int y = 0; y < 16; y++)
+                for (int y = 0; y < 32; y++)
                 {
                     int spriteNumber = textures[x, y];
                     int spriteY = spriteNumber / spritesPerRow;
@@ -70,7 +82,16 @@ namespace Malarkey
 
                     Color tint = new Color(brightness[x, y], brightness[x, y], brightness[x, y], 255);
 
-                    sprite.Draw(new Vector2(64 * x, 64 * y), SpriteEffects.None, tint);
+                    // int screenX = (int)((mapX - camera.mapX) * TILE_SIZE);
+                    // int screenY = (int)((mapY - camera.mapY) * TILE_SIZE);
+
+                    // FIXME: these calculations are all fucked up
+
+                    int screenX = (int)(64 * (x - (camera.mapX / 2)));
+                    int screenY = (int)(64 * (y - (camera.mapY / 2)));
+
+
+                    sprite.Draw(new Vector2(screenX, screenY), SpriteEffects.None, tint);
                 }
             }
 

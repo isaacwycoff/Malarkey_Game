@@ -217,7 +217,7 @@ namespace Malarkey
             MediaPlayer.Play(Content.Load<Song>("Music/trim_loop2"));
             MediaPlayer.Volume = 0.0f;          // FIXME: get this from Settings        
 
-            worldFloor = new Floor(textureManager.GetTexture("TILE_JUNGLE"), Floor.DEFAULT_TILE_SIZE, Floor.DEFAULT_TILE_SIZE);
+            worldFloor = new Floor(textureManager.GetTexture("TILE_JUNGLE"), Floor.DEFAULT_TILE_SIZE, Floor.DEFAULT_TILE_SIZE, playerCamera);
 
             // create the full-screen fader for fading in and out (how cinematic!)
             fader = new Fader(textureManager.GetTexture("BLACK_PIXEL"), fullScreen);
@@ -352,6 +352,8 @@ namespace Malarkey
 
             // parse player's keypresses
             ParseInput(gameTime);
+
+            playerCamera.Update();
 
             elementManager.CleanUp();
         }

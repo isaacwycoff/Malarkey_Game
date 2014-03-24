@@ -36,6 +36,11 @@ namespace Malarkey
             this.sizeY = 16.0;            
         }
 
+        public void SetFocus(Entity focus)
+        {
+            this.focusEntity = focus;
+        }
+
         public Camera(int mapX = 0, int mapY = 0, float tileX = 0.0f, float tileY = 0.0f, float sizeX = 32.0f, float sizeY = 16.0f)
         {
 
@@ -46,8 +51,8 @@ namespace Malarkey
             // updates the camera based on where the focusEntity is
             if (focusEntity == null) return;        // error silently
 
-            const int HALFSCREEN_X = 8;
-            const int HALFSCREEN_Y = 6;
+            const int HALFSCREEN_X = 16;
+            const int HALFSCREEN_Y = 12;
 
             this.mapX = focusEntity.mapX - HALFSCREEN_X;
             this.mapY = focusEntity.mapY - HALFSCREEN_Y;

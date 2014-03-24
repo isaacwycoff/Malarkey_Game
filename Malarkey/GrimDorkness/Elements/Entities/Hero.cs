@@ -45,12 +45,25 @@ namespace Malarkey
             this.camera = camera;
             // TODO: this is temporary
 
+            camera.SetFocus(this);
+
             animIdleSouth = new List<Rectangle>
             {
                 new Rectangle(234, 738, 66, 53)
             };
 
-            
+            animIdleNorth = new List<Rectangle>
+            {
+                new Rectangle(25, 395, 62, 62)
+            };
+
+            /*
+            animIdleWest = new List<Rectangle>
+            {
+                new Rectangle(
+            };
+            */
+
             animMoveSouth = new List<Rectangle>
             {
                 new Rectangle(30, 669, 66, 53),
@@ -142,6 +155,7 @@ namespace Malarkey
         public override void Draw(GameTime gameTime)
         {
             sprite.UpdateRect(animMoveSouth[1]);
+            // sprite.UpdateRect(animIdleNorth[0]);
 
             base.Draw(gameTime);
 
