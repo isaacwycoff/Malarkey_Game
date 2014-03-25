@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
+using Newtonsoft.Json.Linq;
 
 namespace Malarkey
 {
@@ -48,6 +49,8 @@ namespace Malarkey
 
         GameTime aliveTime;
 
+        SettingsManager settingsManager = SettingsManager.GetInstance();
+
         TextureManager textureManager = TextureManager.GetInstance();
 
         Floor worldFloor;
@@ -75,6 +78,8 @@ namespace Malarkey
 
         public Game()
         {
+            Console.WriteLine("Tada");
+
             randomizer = new Random();
 
             gameState = GameStatus.startMenu;
@@ -113,8 +118,6 @@ namespace Malarkey
                     gameState = GameStatus.restart;
                 }
             }
-
-            bool noInput = true;
 
             if (Keyboard.GetState().IsKeyDown(Keys.F12))
             {

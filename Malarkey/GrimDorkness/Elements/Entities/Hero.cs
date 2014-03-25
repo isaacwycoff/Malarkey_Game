@@ -3,14 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
-using Microsoft.Xna.Framework.Net;
-using Microsoft.Xna.Framework.Storage;
 
 namespace Malarkey
 {
@@ -40,7 +33,7 @@ namespace Malarkey
         List<Rectangle> animMoveEast;
         List<Rectangle> animMoveNorth;
 
-        public Hero(Texture2D texture, Camera camera)
+        public Hero(Texture2D texture, Camera camera, double x, double y)
         {
             this.camera = camera;
             // TODO: this is temporary
@@ -80,7 +73,7 @@ namespace Malarkey
             this.maxShield = shield;
             this.damage = 10;
 
-            this.setMapCoords(6.0, 6.0);            // FIXME: this should NOT be set here
+            this.setMapCoords(x, y);            // FIXME: this should NOT be set here
 
             this.UpdateScreenCoords();
 

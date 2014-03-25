@@ -90,7 +90,6 @@ namespace Malarkey
                     int screenX = (int)(64 * (x - (camera.mapX / 2)));
                     int screenY = (int)(64 * (y - (camera.mapY / 2)));
 
-
                     sprite.Draw(new Vector2(screenX, screenY), SpriteEffects.None, tint);
                 }
             }

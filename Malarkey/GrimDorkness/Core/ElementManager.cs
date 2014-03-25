@@ -37,18 +37,6 @@ namespace Malarkey
             entitiesToDelete = new List<Entity>();
             newEntities = new List<Entity>();
 
-            /*
-            worldFloor = new Floor(textureManager.GetTexture("TILE_JUNGLE"), Floor.DEFAULT_TILE_SIZE, Floor.DEFAULT_TILE_SIZE);
-
-            // create the full-screen fader for fading in and out (how cinematic!)
-            fader = new Fader(textureManager.GetTexture("BLACK_PIXEL"), fullScreen);
-
-            fader.fadeIn(Fader.DEFAULT_FADE_SHIFT);
-
-            playerHero = new Hero(textureManager.GetTexture("KNIGHT_SWORD"), playerCamera);
-            listOfEntities.Add(playerHero);
-            */
-
         }
 
         public void AddEntity(int id, double x, double y) {
@@ -62,7 +50,7 @@ namespace Malarkey
 
             String textureString = "KNIGHT_SWORD";            // hard-coded right now. will be determined from a json file later.
 
-            playerHero = new Hero(textureManager.GetTexture(textureString), camera);
+            playerHero = new Hero(textureManager.GetTexture(textureString), camera, x, y);
             listOfEntities.Add(playerHero);
 
             return playerHero;
