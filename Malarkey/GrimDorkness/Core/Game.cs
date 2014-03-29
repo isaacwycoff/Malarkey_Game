@@ -228,6 +228,7 @@ namespace Malarkey
             fader.fadeIn(Fader.DEFAULT_FADE_SHIFT);
 
             playerHero = elementManager.AddHero(0, 5.0, 5.0, playerCamera);
+            elementManager.AddEntity(1, 2.0, 2.0);
 
             hudHealthBar = new HealthBar(textureManager.GetTexture("HEALTH_TICK"), playerHero.GetHealth(), playerHero.GetMaxHealth());
         }

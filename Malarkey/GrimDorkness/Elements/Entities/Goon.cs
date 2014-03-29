@@ -31,6 +31,8 @@ namespace Malarkey
                 new Rectangle(234, 738, 66, 53)
             };
 
+
+            sprite = new Sprite(texture, new Rectangle(234, 738, 66, 53), 1.0);
         }
 
 

@@ -41,8 +41,12 @@ namespace Malarkey
 
         public void AddEntity(int id, double x, double y) {
 
-            // switch based on id and add it
+            String textureString = "KNIGHT_SWORD";
 
+            // switch based on id and add it
+            Goon tmpGoon = new Goon(textureManager.GetTexture(textureString), x, y);
+
+            listOfEntities.Add(tmpGoon);
         }
 
         public Hero AddHero(int id, double x, double y, Camera camera) {
