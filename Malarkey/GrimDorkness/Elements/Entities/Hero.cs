@@ -62,7 +62,6 @@ namespace Malarkey
                 new Rectangle(30, 669, 66, 53),
                 new Rectangle(96, 669, 66, 53),
                 new Rectangle(160, 669, 66, 53)
-
             };
             
 
@@ -148,53 +147,12 @@ namespace Malarkey
         public override void Draw(GameTime gameTime)
         {
             sprite.UpdateRect(animMoveSouth[1]);
-            // sprite.UpdateRect(animIdleNorth[0]);
 
             base.Draw(gameTime);
-
-
-            // FIXME: where do we deal with this animation stuff?
-            // should be dealt with in the sprite, methinks
-
-/*             animTimeElapsed += gameTime.ElapsedGameTime.TotalSeconds;
-            if (animTimeElapsed >= animDelay)
-            {
-                animTimeElapsed = 0;
-
-                if (currentAnim == ShipAnim.FlyLeft)
-                {
-                    --currentFrame;
-                    if (currentFrame < FlyingAnimFrame.FarLeft) currentFrame = FlyingAnimFrame.FarLeft;
-                }
-                else if (currentAnim == ShipAnim.FlyRight)
-                {
-                    ++currentFrame;
-                    if (currentFrame > FlyingAnimFrame.FarRight) currentFrame = FlyingAnimFrame.FarRight;
-                }
-                else
-                {
-                    // if we're not moving left or right, tilt back towards the center:
-                    if (currentFrame > FlyingAnimFrame.Straight) --currentFrame;
-                    else if (currentFrame < FlyingAnimFrame.Straight) ++currentFrame;
-                } 
-
-            } */
-
-//            sprite.UpdateRect(animFly[(int)currentFrame]);
-
-
         }
 
         public override void Update(GameTime gameTime)
         {
-            // manage behavior cooldowns -- delays on certain actions to prevent them from being spammed
-
-/*            if (fireCooldownRemaining > 0)
-            {
-                fireCooldownRemaining -= gameTime.ElapsedGameTime.TotalSeconds;
-                if (fireCooldownRemaining < 0) fireCooldownRemaining = 0;
-            } */
-
             base.Update(gameTime);
         }
 

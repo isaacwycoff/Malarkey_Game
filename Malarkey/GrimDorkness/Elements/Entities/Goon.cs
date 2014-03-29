@@ -13,11 +13,13 @@ namespace Malarkey
 
         List<Rectangle> animIdleSouth;
 
-        public Goon(Texture2D texture, double x, double y)
+        public Goon(Texture2D texture, double x, double y, Camera camera)
         {
             this.setMapCoords(x, y);            // FIXME: this should NOT be set here
 
             this.UpdateScreenCoords();
+
+            this.camera = camera;
 
             // these should be defined in an external file:
             this.health = 100;
@@ -38,6 +40,10 @@ namespace Malarkey
 
         public override void Draw(GameTime gameTime)
         {
+
+            // this.UpdateScreenCoords();
+
+
             sprite.UpdateRect(animIdleSouth[0]);
             // sprite.UpdateRect(animIdleNorth[0]);
 
@@ -45,6 +51,12 @@ namespace Malarkey
 
         }
 
+        public override void Update(GameTime gameTime)
+        {
+
+
+            base.Update(gameTime);
+        }
 
     }
 }
