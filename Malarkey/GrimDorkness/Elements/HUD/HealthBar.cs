@@ -16,9 +16,12 @@ namespace Malarkey
 {
     class HealthBar:HUDElement
     {
+        Entity entity;          // what entity are we tracking?
 
-        public HealthBar(Texture2D texture, int health, int maxHealth)
+        public HealthBar(Texture2D texture, Entity entity)
         {
+            this.entity = entity;
+
             position = new Vector2(10.0f, 10.0f);           // FIXME - this should be resolution agnostic
 
             sourceRect = new Rectangle(0, 0, texture.Width, texture.Height);
@@ -28,23 +31,14 @@ namespace Malarkey
 
         public override void Draw(GameTime gameTime)
         {
-
-            base.Draw(gameTime);
-        }
-
-        public void DrawHealthTicks(SpriteBatch spriteBatch, int health, int maxHealth)
-        {
-            int numberOfTicks = (10 * health) / maxHealth;
+            int numberOfTicks = (10 * entity.health) / entity.maxHealth;
 
             for (int currentTick = 0; currentTick < numberOfTicks; currentTick++)
             {
                 Vector2 currentTickPosition = new Vector2(10.0f + (10.0f * (float)currentTick), 10);
-
                 sprite.Draw(currentTickPosition, SpriteEffects.None);
-
-            }
+            }            
         }
-
 
     }
 }

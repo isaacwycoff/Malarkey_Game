@@ -37,6 +37,7 @@ namespace Malarkey
 
         public void AddTextures(String foo = null)
         {
+            // FIXME: this should be drawn from an XML or JSON file
             // loads all the textures from a file, or associated with a level
             this.AddTexture("BLACK_PIXEL", "BlackPixel");
             this.AddTexture("START_SCREEN", "startScreen");

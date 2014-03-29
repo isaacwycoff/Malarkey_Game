@@ -48,11 +48,11 @@ namespace Malarkey
     class Entity: Element, IComparable<Entity>
     {
         // common variables for all entities:
-        protected int health;
-        protected int maxHealth;
+        public int health { get; protected set; }
+        public int maxHealth { get; protected set; }
 
-        protected int shield;
-        protected int maxShield;
+        public int shield { get; protected set; }
+        public int maxShield { get; protected set; }
 
         protected int damage;
         protected double speed;

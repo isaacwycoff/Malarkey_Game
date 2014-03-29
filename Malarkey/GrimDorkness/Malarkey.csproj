@@ -123,6 +123,7 @@
     <Compile Include="Console\DevConsole.cs" />
     <Compile Include="Core\Camera.cs" />
     <Compile Include="Core\ElementManager.cs" />
+    <Compile Include="Core\HUDManager.cs" />
     <Compile Include="Core\Settings.cs" />
     <Compile Include="Core\TextureManager.cs" />
     <Compile Include="Elements\Entities\Goon.cs" />
