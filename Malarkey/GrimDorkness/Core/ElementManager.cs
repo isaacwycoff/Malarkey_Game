@@ -67,11 +67,16 @@ namespace Malarkey
 
         public void Draw(GameTime gameTime)
         {
+            listOfEntities.Sort();
+
             // spit out all the entities:
             foreach (Entity tmpEntity in listOfEntities)
             {
                 tmpEntity.Draw(gameTime);
             }
+
+            // draw entities in order
+
 
             // spit out powerups
             foreach (Entity tmpPowerUp in listOfPowerUps)

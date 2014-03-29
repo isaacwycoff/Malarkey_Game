@@ -232,7 +232,6 @@ namespace Malarkey
 
             elementManager.AddEntity(1, 3.0, 7.6, playerCamera);
 
-
             hudHealthBar = new HealthBar(textureManager.GetTexture("HEALTH_TICK"), playerHero.GetHealth(), playerHero.GetMaxHealth());
         }
 

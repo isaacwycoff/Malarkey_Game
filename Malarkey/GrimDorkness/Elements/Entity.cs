@@ -45,7 +45,7 @@ namespace Malarkey
         SouthWest = 7
     }
 
-    class Entity: Element
+    class Entity: Element, IComparable<Entity>
     {
         // common variables for all entities:
         protected int health;
@@ -65,6 +65,17 @@ namespace Malarkey
         public double attemptedMapX { get; protected set; }
         public double attemptedMapY { get; protected set; }
         public Boolean isAttemptingToMove { get; protected set; }
+
+        public int CompareTo(Entity other)
+        {
+            // If other is not a valid object reference, this instance is greater. 
+            if (other == null) return 1;
+
+            // The temperature comparison depends on the comparison of  
+            // the underlying Double values.  
+            return screenY.CompareTo(other.screenY);
+        }
+
 
         public void setMapCoords(double x, double y)
         {
