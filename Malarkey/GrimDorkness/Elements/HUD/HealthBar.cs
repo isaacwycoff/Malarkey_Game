@@ -14,24 +14,16 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace Malarkey
 {
-    // super jankaphonics!      this should be a HUD Element
     class HealthBar:HUDElement
     {
 
-        Vector2 position;
-
-        Rectangle sourceRect;
-        Rectangle destRect;
-
         public HealthBar(Texture2D texture, int health, int maxHealth)
         {
-            position = new Vector2(10.0f, 10.0f);
+            position = new Vector2(10.0f, 10.0f);           // FIXME - this should be resolution agnostic
 
             sourceRect = new Rectangle(0, 0, texture.Width, texture.Height);
 
             sprite = new Sprite(texture, sourceRect, 2.0);
-
-
         }
 
         public override void Draw(GameTime gameTime)

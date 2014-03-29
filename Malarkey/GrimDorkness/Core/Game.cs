@@ -73,6 +73,8 @@ namespace Malarkey
 
         HealthBar hudHealthBar;
 
+        DialogPortrait tmpPortrait;
+
 
         Camera playerCamera;
 
@@ -233,6 +235,7 @@ namespace Malarkey
             elementManager.AddEntity(1, 3.0, 7.6, playerCamera);
 
             hudHealthBar = new HealthBar(textureManager.GetTexture("HEALTH_TICK"), playerHero.GetHealth(), playerHero.GetMaxHealth());
+            tmpPortrait = new DialogPortrait(textureManager.GetTexture("PORTRAITS"));
         }
 
 
@@ -316,6 +319,8 @@ namespace Malarkey
             spriteBatch.DrawString(devFont, output, new Vector2(21, 501), Color.DarkBlue);          // y 571
             spriteBatch.DrawString(devFont, output, new Vector2(20, 500), Color.WhiteSmoke);        // y 570
             hudHealthBar.DrawHealthTicks(spriteBatch, playerHero.GetHealth(), playerHero.GetMaxHealth());
+
+            tmpPortrait.Draw(gameTime);
 
             // draw overlays:
             switch (gameState)

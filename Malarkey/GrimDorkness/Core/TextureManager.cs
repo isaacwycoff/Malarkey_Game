@@ -44,6 +44,7 @@ namespace Malarkey
             this.AddTexture("AKIMBO_GIRL", "akimbogirlstand");
             this.AddTexture("KNIGHT_SWORD", "knight_sword");
             this.AddTexture("TILE_JUNGLE", "tile_jungle");
+            this.AddTexture("PORTRAITS", "portraits");
             /*
             myTexture = Content.Load<Texture2D>("Graphics/player_ship");
             enemyTexture = Content.Load<Texture2D>("Graphics/enemy_ship");

@@ -131,6 +131,7 @@
     <Compile Include="Core\Element.cs" />
     <Compile Include="Elements\Effects\Fader.cs" />
     <Compile Include="Elements\EntityFactory.cs" />
+    <Compile Include="Elements\HUD\DialogPortrait.cs" />
     <Compile Include="Elements\HUD\HealthBar.cs" />
     <Compile Include="Elements\HUDElement.cs" />
     <Compile Include="Elements\World\Floor.cs" />

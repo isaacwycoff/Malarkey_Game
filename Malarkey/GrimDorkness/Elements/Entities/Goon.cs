@@ -53,7 +53,7 @@ namespace Malarkey
 
         public override void Update(GameTime gameTime)
         {
-
+            mapY += 0.05;
 
             base.Update(gameTime);
         }

@@ -69,6 +69,9 @@ namespace Malarkey
         {
             listOfEntities.Sort();
 
+            // draw walls and entities
+
+
             // spit out all the entities:
             foreach (Entity tmpEntity in listOfEntities)
             {
