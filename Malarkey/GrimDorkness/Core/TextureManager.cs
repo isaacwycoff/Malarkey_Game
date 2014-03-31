@@ -40,28 +40,12 @@ namespace Malarkey
             // FIXME: this should be drawn from an XML or JSON file
             // loads all the textures from a file, or associated with a level
             this.AddTexture("BLACK_PIXEL", "BlackPixel");
-            this.AddTexture("START_SCREEN", "startScreen");
-            this.AddTexture("HEALTH_TICK", "healthTIck");
-            this.AddTexture("AKIMBO_GIRL", "akimbogirlstand");
-            this.AddTexture("KNIGHT_SWORD", "knight_sword");
-            this.AddTexture("TILE_JUNGLE", "tile_jungle");
-            this.AddTexture("PORTRAITS", "portraits");
-            /*
-            myTexture = Content.Load<Texture2D>("Graphics/player_ship");
-            enemyTexture = Content.Load<Texture2D>("Graphics/enemy_ship");
-            projectileTexture = Content.Load<Texture2D>("Graphics/projectiles");
-            cloudsTexture = Content.Load<Texture2D>("Graphics/clouds1");
-            explosionsTexture = Content.Load<Texture2D>("Graphics/explosions");
-            zeppelinTexture = Content.Load<Texture2D>("Graphics/zeppelin");
-            blackPixelTexture = Content.Load<Texture2D>("Graphics/BlackPixel");
-            mainMenuTexture = Content.Load<Texture2D>("Graphics/startScreen");
-            deathScreenTexture = Content.Load<Texture2D>("Graphics/endScreen");      // FIXME
-            healthTickTexture = Content.Load<Texture2D>("Graphics/healthTick");
-            powerUpsTexture = Content.Load<Texture2D>("Graphics/powerups");
-            akimboGirlTexture = Content.Load<Texture2D>("Graphics/akimbogirlstand");
-            knightSwordTexture = Content.Load<Texture2D>("Graphics/knight_sword");
-            jungleTexture = Content.Load<Texture2D>("Graphics/tile_jungle");
-            */
+            this.AddTexture("HEALTH_TICK", "healthTIck_REPLACE");
+            this.AddTexture("AKIMBO_GIRL", "akimbogirlstand_REPLACE");
+            this.AddTexture("KNIGHT_SWORD", "knight_sword_REPLACE");
+            this.AddTexture("TILE_JUNGLE", "tile_jungle_REPLACE");
+            this.AddTexture("PORTRAITS", "portraits_REPLACE");
+            this.AddTexture("CLIFF_WALLS", "CliffVeg_FREE");
         }
 
         public void AddTexture(String name, String path)

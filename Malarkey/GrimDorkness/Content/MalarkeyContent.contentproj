@@ -55,29 +55,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Graphics\player_ship.png">
-      <Name>player_ship</Name>
+    <Compile Include="Graphics\explosions_FREE.png">
+      <Name>explosions_FREE</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Graphics\explosions.png">
-      <Name>explosions</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Graphics\enemy_ship.png">
-      <Name>enemy_ship</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Graphics\projectiles.png">
-      <Name>projectiles</Name>
+    <Compile Include="Graphics\projectiles_FREE.png">
+      <Name>projectiles_FREE</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -87,13 +73,6 @@
       <Name>DevFont</Name>
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Graphics\clouds1.png">
-      <Name>clouds1</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -111,13 +90,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Graphics\zeppelin.png">
-      <Name>zeppelin</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Sfx\magnum1.wav">
       <Name>magnum1</Name>
       <Importer>WavImporter</Importer>
@@ -132,8 +104,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Graphics\portraits.png">
-      <Name>portraits</Name>
+    <Compile Include="Graphics\portraits_REPLACE.png">
+      <Name>portraits_REPLACE</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -153,41 +125,22 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Graphics\mainmenu.png">
-      <Name>mainmenu</Name>
+    <Compile Include="Graphics\healthTick_REPLACE.png">
+      <Name>healthTick_REPLACE</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Graphics\healthTick.png">
-      <Name>healthTick</Name>
+    <Compile Include="Graphics\powerups_FREE.png">
+      <Name>powerups_FREE</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Graphics\endScreen.png">
-      <Name>endScreen</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Graphics\startScreen.png">
-      <Name>startScreen</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Graphics\powerups.png">
-      <Name>powerups</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Graphics\scoreups.png">
-      <Name>scoreups</Name>
+    <Compile Include="Graphics\scoreups_FREE.png">
+      <Name>scoreups_FREE</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -218,15 +171,15 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Graphics\akimbogirl.png">
-      <Name>akimbogirl</Name>
+    <Compile Include="Graphics\akimbogirl_REPLACE.png">
+      <Name>akimbogirl_REPLACE</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Graphics\akimbogirlstand.png">
-      <Name>akimbogirlstand</Name>
+    <Compile Include="Graphics\akimbogirlstand_REPLACE.png">
+      <Name>akimbogirlstand_REPLACE</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -239,15 +192,30 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Graphics\knight_sword.png">
-      <Name>knight_sword</Name>
+    <Compile Include="Graphics\knight_sword_REPLACE.png">
+      <Name>knight_sword_REPLACE</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Graphics\tile_jungle.png">
-      <Name>tile_jungle</Name>
+    <Compile Include="Graphics\tile_jungle_REPLACE.png">
+      <Name>tile_jungle_REPLACE</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="settings.xml">
+      <Name>settings</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+      <SubType>Designer</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Graphics\CliffVeg_FREE.bmp">
+      <Name>CliffVeg_FREE</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
