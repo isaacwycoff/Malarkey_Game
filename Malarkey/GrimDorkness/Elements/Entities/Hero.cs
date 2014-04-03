@@ -33,13 +33,26 @@ namespace Malarkey
         List<Rectangle> animMoveEast;
         List<Rectangle> animMoveNorth;
 
+        // FIXME: these should be in an animation class
+        int currentFrame;
+        int msElapsed;
+        int msPerFrame;
+
+
         public Hero(Texture2D texture, Camera camera, double x, double y)
         {
             this.camera = camera;
             // TODO: this is temporary
 
+            this.currentFrame = 0;
+            this.msElapsed = 0;
+            this.msPerFrame = 200;
+
+
             camera.SetFocus(this);
 
+
+            // we need to set up our own Animation & AnimationPlayer classes, that draw from XML
             animIdleSouth = new List<Rectangle>
             {
                 new Rectangle(234, 738, 66, 53)
@@ -146,7 +159,21 @@ namespace Malarkey
         
         public override void Draw(GameTime gameTime)
         {
-            sprite.UpdateRect(animMoveSouth[1]);
+
+
+            this.msElapsed += gameTime.ElapsedGameTime.Milliseconds;
+
+            if (this.msElapsed > this.msPerFrame)
+            {
+                this.msElapsed -= this.msPerFrame;
+                this.currentFrame++;
+                if (this.currentFrame >= animMoveSouth.Count)
+                {
+                    this.currentFrame = 0;
+                }
+            }
+
+            sprite.UpdateRect(animMoveSouth[currentFrame]);
 
             base.Draw(gameTime);
         }
