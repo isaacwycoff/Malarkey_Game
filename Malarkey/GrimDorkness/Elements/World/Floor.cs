@@ -54,7 +54,7 @@ namespace Malarkey
 
             Rectangle textureRect = new Rectangle(0, 0, this.tileWidth, this.tileHeight);
 
-            sprite = new Sprite(texture, textureRect, 2.0);
+            sprite = new AnimatedSprite(texture, textureRect, 2.0);
 
         }
 

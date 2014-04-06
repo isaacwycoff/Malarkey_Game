@@ -52,7 +52,7 @@ namespace Malarkey
             camera.SetFocus(this);
 
 
-            // we need to set up our own Animation & AnimationPlayer classes, that draw from XML
+            // we need to set up our own _Animation & _AnimationPlayer classes, that draw from XML
             animIdleSouth = new List<Rectangle>
             {
                 new Rectangle(234, 738, 66, 53)
@@ -95,7 +95,7 @@ namespace Malarkey
 
             team = Team.Player;
 
-            sprite = new Sprite(texture, new Rectangle(234, 738, 66, 53), 1.0);
+            sprite = new AnimatedSprite(texture, new Rectangle(234, 738, 66, 53), 1.0);
         }
 
         public override int GetMaxHealth()
@@ -159,7 +159,6 @@ namespace Malarkey
         
         public override void Draw(GameTime gameTime)
         {
-
 
             this.msElapsed += gameTime.ElapsedGameTime.Milliseconds;
 

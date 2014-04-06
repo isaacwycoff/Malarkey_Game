@@ -15,17 +15,19 @@ namespace Malarkey
 {
     class Sprite
     {
-        static SpriteBatch spriteBatch;     // must be initialized before Draw can be used!
+        protected static SpriteBatch spriteBatch;     // must be initialized before Draw can be used!
 
-        Texture2D texture;          // reference to our texture
-        Rectangle sourceRect;       // source rectangle from texture
-        double scale;               // scaling - 1.0 is no scaling
-        int width, height;          // destination dimensions
+        protected Texture2D texture;          // reference to our texture
+        protected Rectangle sourceRect;       // source rectangle from texture
+        protected double scale;               // scaling - 1.0 is no scaling
+        protected int width, height;          // destination dimensions
 
         public static void InitClass(SpriteBatch globalSpriteBatch)
         {
             spriteBatch = globalSpriteBatch;
         }
+
+        protected Sprite() { }        // so that we can subclass Sprite. This might be an anti-pattern.
 
         // constructor
         public Sprite(Texture2D newTexture, Rectangle newRect, double newScale)

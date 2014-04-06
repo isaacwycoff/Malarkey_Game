@@ -50,7 +50,7 @@ namespace Malarkey
             currentFade = 0.0f;
 
             // the fade texture is a single-pixel bitmap:
-            sprite = new Sprite(texture, new Rectangle(0, 0, 1, 1), 1.0);
+            sprite = new AnimatedSprite(texture, new Rectangle(0, 0, 1, 1), 1.0);
 
             sprite.setDimensions(fullScreen.Width, fullScreen.Height);
 

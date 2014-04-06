@@ -24,7 +24,8 @@ namespace Malarkey
     class Element
     {
         protected int screenX, screenY;           // screenpos in pixels
-        protected Sprite sprite;
+//        protected Sprite sprite;
+        protected AnimatedSprite sprite;
 
         protected bool markedForDeath = false;    
 

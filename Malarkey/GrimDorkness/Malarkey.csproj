@@ -118,8 +118,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Animation\AnimatedSprite.cs" />
     <Compile Include="Animation\Animation.cs" />
-    <Compile Include="Animation\AnimationPlayer.cs" />
+    <Compile Include="Animation\SpriteInstance.cs" />
+    <Compile Include="Animation\SpriteManager.cs" />
+    <Compile Include="Animation\_Animation.cs" />
+    <Compile Include="Animation\_AnimationPlayer.cs" />
     <Compile Include="Console\DevConsole.cs" />
     <Compile Include="Core\Camera.cs" />
     <Compile Include="Core\ElementManager.cs" />
@@ -143,7 +147,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Core\Program.cs" />
     <Compile Include="Core\Game.cs" />
-    <Compile Include="Core\Sprite.cs" />
+    <Compile Include="Animation\Sprite.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

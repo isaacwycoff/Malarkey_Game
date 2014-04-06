@@ -26,7 +26,7 @@ namespace Malarkey
 
             sourceRect = new Rectangle(0, 0, texture.Width, texture.Height);
 
-            sprite = new Sprite(texture, sourceRect, 2.0);
+            sprite = new AnimatedSprite(texture, sourceRect, 2.0);
         }
 
         public override void Draw(GameTime gameTime)

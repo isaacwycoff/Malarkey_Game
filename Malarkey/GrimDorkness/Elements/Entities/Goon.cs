@@ -34,7 +34,7 @@ namespace Malarkey
             };
 
 
-            sprite = new Sprite(texture, new Rectangle(234, 738, 66, 53), 1.0);
+            sprite = new AnimatedSprite(texture, new Rectangle(234, 738, 66, 53), 1.0);
         }
 
 
