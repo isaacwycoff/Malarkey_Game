@@ -95,7 +95,9 @@ namespace Malarkey
 
             team = Team.Player;
 
-            sprite = new AnimatedSprite(texture, new Rectangle(234, 738, 66, 53), 1.0);
+            // sprite = 
+
+            sprite = new AnimatedSprite(1, texture, new Rectangle(234, 738, 66, 53), 1.0);
         }
 
         public override int GetMaxHealth()

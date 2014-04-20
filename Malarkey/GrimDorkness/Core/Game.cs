@@ -25,11 +25,6 @@ namespace Malarkey
     /// </summary>
     public class Game : Microsoft.Xna.Framework.Game
     {
-        // FIXME: these shouldn't be constant
-        const int SCREEN_WIDTH = 1024;      // 800
-        const int SCREEN_HEIGHT = 768;      // 600
-
-        const Boolean IS_FULL_SCREEN = false;
 
         enum GameStatus
         {
@@ -88,13 +83,13 @@ namespace Malarkey
 
             graphics = new GraphicsDeviceManager(this);
 
-            this.graphics.PreferredBackBufferWidth = SCREEN_WIDTH;
-            this.graphics.PreferredBackBufferHeight = SCREEN_HEIGHT;
-            this.graphics.IsFullScreen = IS_FULL_SCREEN;
+            this.graphics.PreferredBackBufferWidth = settingsManager.screen_width;
+            this.graphics.PreferredBackBufferHeight = settingsManager.screen_height;
+            this.graphics.IsFullScreen = settingsManager.fullscreen;
 
             Content.RootDirectory = "Content";
 
-            fullScreen = new Rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+            fullScreen = new Rectangle(0, 0, settingsManager.screen_width, settingsManager.screen_height);
 
             playerCamera = new Camera();        // FIXME - tie this to the player
 

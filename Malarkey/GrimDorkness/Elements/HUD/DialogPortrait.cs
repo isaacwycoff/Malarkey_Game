@@ -16,7 +16,7 @@ namespace Malarkey
 
             sourceRect = new Rectangle(0, 0, texture.Width, texture.Height);
 
-            sprite = new AnimatedSprite(texture, sourceRect, 2.0);
+            sprite = new AnimatedSprite(1, texture, sourceRect, 2.0);
         }
 
     }

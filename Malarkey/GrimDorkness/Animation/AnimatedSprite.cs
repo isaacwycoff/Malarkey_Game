@@ -10,10 +10,14 @@ namespace Malarkey
     class AnimatedSprite: Sprite
     {
         List<Animation> animations;
+
+        int spriteID;
         
         // Sprite sprite;
-        public AnimatedSprite(Texture2D newTexture, Rectangle newRect, double newScale)
+        public AnimatedSprite(int spriteID, Texture2D newTexture, Rectangle newRect, double newScale)
         {
+            this.spriteID = spriteID;
+
             animations = new List<Animation>();
 
             scale = newScale;
@@ -22,6 +26,11 @@ namespace Malarkey
             height = (int)(newRect.Height * scale);
             texture = newTexture;
             sourceRect = newRect;
+        }
+
+        public int GetSpriteID()
+        {
+            return spriteID;
         }
 
     }
