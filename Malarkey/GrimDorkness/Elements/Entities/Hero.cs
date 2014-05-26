@@ -23,60 +23,12 @@ namespace Malarkey
     class Hero: Entity
     {
 
-        List<Rectangle> animIdleSouth;
-        List<Rectangle> animIdleWest;
-        List<Rectangle> animIdleEast;
-        List<Rectangle> animIdleNorth;
-
-        List<Rectangle> animMoveSouth;
-        List<Rectangle> animMoveWest;
-        List<Rectangle> animMoveEast;
-        List<Rectangle> animMoveNorth;
-
-        // FIXME: these should be in an animation class
-        int currentFrame;
-        int msElapsed;
-        int msPerFrame;
-
-
         public Hero(Texture2D texture, Camera camera, double x, double y)
         {
             this.camera = camera;
             // TODO: this is temporary
 
-            this.currentFrame = 0;
-            this.msElapsed = 0;
-            this.msPerFrame = 200;
-
-
             camera.SetFocus(this);
-
-
-            // we need to set up our own _Animation & _AnimationPlayer classes, that draw from XML
-            animIdleSouth = new List<Rectangle>
-            {
-                new Rectangle(234, 738, 66, 53)
-            };
-
-            animIdleNorth = new List<Rectangle>
-            {
-                new Rectangle(25, 395, 62, 62)
-            };
-
-            /*
-            animIdleWest = new List<Rectangle>
-            {
-                new Rectangle(
-            };
-            */
-
-            animMoveSouth = new List<Rectangle>
-            {
-                new Rectangle(30, 669, 66, 53),
-                new Rectangle(96, 669, 66, 53),
-                new Rectangle(160, 669, 66, 53)
-            };
-            
 
             // these should be defined in an external file:
             this.health = 100;
@@ -95,7 +47,8 @@ namespace Malarkey
 
             team = Team.Player;
 
-            // sprite = 
+            this.currentAnim = AnimationID.IDLE_SOUTH;
+
 
             sprite = new AnimatedSprite(1, texture, new Rectangle(234, 738, 66, 53), 1.0);
         }
@@ -112,6 +65,8 @@ namespace Malarkey
         {
             float timeScale = (float)gameTime.ElapsedGameTime.TotalSeconds;
             timeScale = 1.0f;
+
+            this.currentAnim = AnimationID.IDLE_SOUTH;
 
             // FIXME: this is super-ugly. is there a better way to deal with this?
             if (command.HasFlag(HeroCommand.MoveNorth))
@@ -146,6 +101,7 @@ namespace Malarkey
                 else
                 {
                     MoveDirection(Direction.South, timeScale);
+                    this.currentAnim = AnimationID.WALK_SOUTH;
                 }
             }
             else if (command.HasFlag(HeroCommand.MoveWest))
@@ -162,19 +118,12 @@ namespace Malarkey
         public override void Draw(GameTime gameTime)
         {
 
-            this.msElapsed += gameTime.ElapsedGameTime.Milliseconds;
+            // pseudo-code:
+            // look at current things happening to this unit, and determine the animation
 
-            if (this.msElapsed > this.msPerFrame)
-            {
-                this.msElapsed -= this.msPerFrame;
-                this.currentFrame++;
-                if (this.currentFrame >= animMoveSouth.Count)
-                {
-                    this.currentFrame = 0;
-                }
-            }
+            //AnimationID currentAnim = AnimationID.WALK_SOUTH;
 
-            sprite.UpdateRect(animMoveSouth[currentFrame]);
+            sprite.Update(gameTime, currentAnim);
 
             base.Draw(gameTime);
         }

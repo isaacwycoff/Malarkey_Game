@@ -54,6 +54,8 @@ namespace Malarkey
         public int shield { get; protected set; }
         public int maxShield { get; protected set; }
 
+        public AnimationID currentAnim { get; protected set; }
+
         protected int damage;
         protected double speed;
         protected EntityState state;

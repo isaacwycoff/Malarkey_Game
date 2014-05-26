@@ -171,7 +171,7 @@ namespace Malarkey
             if (command != HeroCommand.Idle)
             {
                 elementManager.SendPlayerCommand(command, gameTime);
-                playerHero.SendCommand(command, gameTime);
+                // playerHero.SendCommand(command, gameTime);
 
             }
 

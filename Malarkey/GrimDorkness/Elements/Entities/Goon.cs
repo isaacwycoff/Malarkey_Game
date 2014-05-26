@@ -43,9 +43,8 @@ namespace Malarkey
 
             // this.UpdateScreenCoords();
 
-
-            sprite.UpdateRect(animIdleSouth[0]);
-            // sprite.UpdateRect(animIdleNorth[0]);
+            AnimationID currentAnim = AnimationID.WALK_SOUTH;
+            sprite.Update(gameTime, currentAnim);                   
 
             base.Draw(gameTime);
 
